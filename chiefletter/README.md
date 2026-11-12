@@ -1,9 +1,8 @@
-# ChiefLetter - Vercel deploy
+# ChiefLetter
 
-1. Push this folder to a GitHub repo (or run `npx vercel` inside it).
-2. In Vercel: Framework Preset = Other, Build Command = empty, Output Directory = empty (root).
-3. Add your domain in Project Settings > Domains.
-4. Replace https://www.chiefletter.com with your real domain in all files if different (sitemap.xml, robots.txt, canonical tags).
-5. Submit /sitemap.xml in Google Search Console.
+Static site for Vercel (no build step). Deploy this folder as-is.
 
-Pages use clean URLs (/slug, no .html).
+- `assets/style.css` and `assets/ads.js`: shared styles and the responsive ad loader.
+- `ads/*.html`: one page per ad size; these are loaded inside labelled, fixed-size iframes.
+- Ad slots are `<div class="ad" data-t="leader|inline|rect|rail|rail2"></div>`. The loader picks the size that fits the slot's real width.
+- The social bar script is added in the footer of every content page.
