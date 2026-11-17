@@ -1,5 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /ads/
-
 Sitemap: https://www.chiefletter.com/sitemap.xml
