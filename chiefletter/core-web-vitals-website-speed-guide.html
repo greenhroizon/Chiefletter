@@ -87,7 +87,7 @@ footer .tm{margin-top:4px}
 <script data-cfasync="false" src="https://abscloud.org/1/cf1d21927de9b5c4627a5d5194f30b0f"></script>
 <script>function pick(t,w){if(t=='lead')return w>=768?'728x90':w>=500?'468x60':'320x50';if(t=='mix')return w>=768?'728x90':'300x250';if(t=='rect')return '300x250';if(t=='s600')return w>=1120?'160x600':null}
 function init(el){var s=pick(el.dataset.t,window.innerWidth);if(!s){el.remove();return false}el.dataset.s=s;el.style.minHeight=(parseInt(s.split('x')[1],10)+22)+'px';return true}
-function load(el){if(el.dataset.l)return;el.dataset.l=1;var s=el.dataset.s,p=s.split('x'),f=document.createElement('iframe');f.width=p[0];f.height=p[1];f.scrolling='no';f.setAttribute('frameborder','0');f.title='Advertisement';f.src='/ads/'+s;el.appendChild(f)}
+function load(el){if(el.dataset.l)return;el.dataset.l=1;var s=el.dataset.s,p=s.split('x'),f=document.createElement('iframe');f.width=p[0];f.height=p[1];f.scrolling='no';f.setAttribute('frameborder','0');f.title='Advertisement';f.src='/ads/'+s+'.html';el.appendChild(f)}
 var E=[].slice.call(document.querySelectorAll('.ad')).filter(init);
 if('IntersectionObserver' in window){var o=new IntersectionObserver(function(a){a.forEach(function(x){if(x.isIntersecting){load(x.target);o.unobserve(x.target)}})},{rootMargin:'400px'});E.forEach(function(e){o.observe(e)})}else{E.forEach(load)}
 var t0=Date.now(),tel=document.getElementById('ts'),tk=document.getElementById('tk');function fmt(n){var m=Math.floor(n/60),r=n%60,o=[];if(m)o.push(m+(m==1?' minute':' minutes'));if(r||!m)o.push(r+(r==1?' second':' seconds'));return o.join(' ')}
