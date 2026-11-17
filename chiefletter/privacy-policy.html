@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Privacy policy | ChiefLetter</title><meta name="description" content="How ChiefLetter collects, uses and protects visitor information.">
 <link rel="canonical" href="https://www.chiefletter.com/privacy-policy"><meta name="robots" content="index,follow,max-image-preview:large">
@@ -20,6 +19,9 @@ header{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--ln);backgr
 .dt{font-size:13px;color:var(--mut)}.rt{display:flex;align-items:center;gap:14px}.tk{border:1px solid var(--ln);background:var(--soft);border-radius:999px;padding:3px 12px;font-size:13px;font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums}.tk b{font-weight:700}@media(max-width:640px){.dt{display:none}}
 .w{max-width:1120px;margin:auto;padding:0 20px;display:grid;grid-template-columns:minmax(0,1fr);gap:40px}
 @media(min-width:1120px){.w{grid-template-columns:minmax(0,1fr) 300px}}
+.ad{position:relative;z-index:0;flex:none;width:100%;display:flex;flex-direction:column;align-items:center;margin:24px 0;overflow:hidden;max-width:100%}
+.ad::before{content:"Advertisement";font-size:11px;color:var(--mut);margin-bottom:6px}
+.ad iframe{display:block;border:0;max-width:100%}
 .chip{display:inline-block;background:var(--soft);border:1px solid var(--ln);border-radius:4px;padding:1px 8px;font-size:12px;font-weight:500;color:var(--mut)}
 .meta{color:var(--mut);font-size:13px}
 h1,h2,h3{line-height:1.15;letter-spacing:-.03em;margin:.35em 0;font-weight:800}
@@ -28,13 +30,14 @@ h1,h2,h3{line-height:1.15;letter-spacing:-.03em;margin:.35em 0;font-weight:800}
 .lead:hover h2{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px}
 .grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:20px}
 @media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+.grid .ad{grid-column:1/-1;margin:8px 0}
 .card{display:flex;flex-direction:column;gap:2px;border:1px solid var(--ln);border-radius:8px;padding:18px;transition:background .15s}
 .card:hover{background:var(--hov)}.card h3{font-size:19px;margin:.5em 0 .3em}.card p{margin:0 0 12px;color:var(--mut);font-size:14.5px;flex:1}
-aside{min-width:0}aside .box{border:1px solid var(--ln);border-radius:8px;padding:16px;margin-top:24px}
+aside{min-width:0}aside .ad{margin:24px 0 0}aside .box{border:1px solid var(--ln);border-radius:8px;padding:16px;margin-top:24px}
 aside h4{margin:0 0 8px;font-size:14px;font-weight:700}
 aside ul{margin:0;padding:0}aside li{list-style:none;padding:9px 0;border-top:1px solid var(--ln);font-size:14.5px;line-height:1.4}
 aside li a:hover{text-decoration:underline}
-.sticky{position:sticky;top:76px;margin-top:24px}
+.sticky{position:sticky;top:76px;margin-top:24px}.sticky .ad{margin:0}
 article{padding-top:32px}article h1{font-size:clamp(32px,5.5vw,48px)}
 article .dek{font-size:21px;color:var(--mut);margin:0 0 16px;line-height:1.45}
 article p{font-size:18px;line-height:1.75;max-width:66ch}
@@ -60,7 +63,20 @@ dl.terms{max-width:66ch;display:grid;gap:8px;margin:8px 0}dl.terms dt{font-weigh
 .fl{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-bottom:14px}.fl a{font-size:14px}.fl a:hover{text-decoration:underline;color:var(--fg)}
 footer .tm{margin-top:4px}
 </style>
-<script id="aclib" type="text/javascript" src="https://acscdn.com/script/aclib.js"></script>
+<!-- Taboola Pixel Code -->
+<script type='text/javascript'>
+  window._tfa = window._tfa || [];
+  window._tfa.push({notify: 'event', name: 'page_view', id: 2143181});
+  !function (t, f, a, x) {
+         if (!document.getElementById(x)) {
+            t.async = 1;t.src = a;t.id=x;f.parentNode.insertBefore(t, f);
+         }
+  }(document.createElement('script'),
+  document.getElementsByTagName('script')[0],
+  '//cdn.taboola.com/libtrc/unip/2143181/tfa.js',
+  'tb_tfa_script');
+</script>
+<!-- End of Taboola Pixel Code -->
 </head><body>
 <header><div class="hd"><a class="logo" href="https://www.chiefletter.com/"><span class="mk">C</span><span class="t">ChiefLetter</span></a><nav class="nav" aria-label="Main"><a href="https://www.chiefletter.com/">Home</a><a href="https://www.chiefletter.com/news">News</a><a href="https://www.chiefletter.com/guides">Guides</a><a href="https://www.chiefletter.com/about">About</a></nav></div><div class="prog"><i id="pb"></i></div></header>
 
@@ -72,18 +88,4 @@ footer .tm{margin-top:4px}
 function pad(n){return n<10?'0'+n:n}
 function tick(){var n=Math.floor((Date.now()-t0)/1000),h=Math.floor(n/3600),m=Math.floor(n%3600/60),r=n%60;if(tk)tk.textContent=(h?h+':'+pad(m):m)+':'+pad(r);if(tel)tel.textContent='You have spent '+fmt(n)+' on this page'}
 tick();setInterval(tick,250);
-var pb=document.getElementById('pb');function pr(){var h=document.documentElement.scrollHeight-innerHeight;if(pb)pb.style.width=(h>0?Math.min(100,scrollY/h*100):0)+'%'}addEventListener('scroll',pr,{passive:true});pr();</script>
-<!-- Adcash publisher formats -->
-<script type="text/javascript">
-  if (window.aclib) {
-    aclib.runVideoSlider({
-      zoneId: '12459790',
-    });
-    aclib.runInPagePush({
-      zoneId: '12459794',
-      maxAds: 2,
-    });
-  }
-</script>
-<!-- /Adcash publisher formats -->
-</body></html>
+var pb=document.getElementById('pb');function pr(){var h=document.documentElement.scrollHeight-innerHeight;if(pb)pb.style.width=(h>0?Math.min(100,scrollY/h*100):0)+'%'}addEventListener('scroll',pr,{passive:true});pr();</script></body></html>
