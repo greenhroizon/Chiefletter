@@ -1,4 +1,4 @@
-# Plaintext keyword plan
+# Chiefletter keyword plan
 
 ## Research approach
 
@@ -37,10 +37,18 @@ The site uses one primary question per article, descriptive titles and slugs, us
 | Make Your Online Tech Presence Clear and Useful | developer online presence | developer portfolio and GitHub; tech profile tips | Career presentation |
 | Handle a Tech Project When Requirements Keep Changing | changing requirements software project | scope creep in tech; manage product changes | Work practice |
 | Read Tech Job Descriptions Without Getting Discouraged | how to read tech job descriptions | missing qualifications; software developer requirements | Job application help |
+| Build Your First Website Without Getting Lost in the Setup | build your first website | beginner web development project; HTML CSS website | Practical how-to |
+| Write a Bug Report Someone Can Actually Fix | how to write a bug report | software bug report template; report a technical issue | Practical how-to |
+| Turn a Data Project Into a Clear Answer | beginner data analysis project | analyze a dataset; data analysis portfolio project | Skill learning |
+| Write Technical Documentation People Will Use | how to write technical documentation | software documentation best practices; developer docs | Team practice |
+| Work Better Across Product, Design, and Engineering | product design engineering collaboration | cross functional product team; improve product handoff | Team practice |
+| Update Software Dependencies Without Breaking Everything | update software dependencies safely | package dependency management; library version update | Practical how-to |
+| Keep a Small Cloud Project From Running Up a Bill | avoid cloud computing charges | cloud cost management for beginners; cloud budget alerts | Practical how-to |
+| Study Computer Science Fundamentals Through Practical Work | computer science fundamentals for self taught developers | learn data structures; practical algorithms study plan | Skill learning |
 
 ## Before publication
 
-1. Check query wording and result intent for the actual audience and country; this is an English-language starter plan.
+1. Check query wording and result intent for the actual audience and country; this is an English-language research plan.
 2. Verify time-sensitive technical claims against official documentation and add direct citations in the relevant article.
 3. Add real author names, qualifications/experience, review dates, and an accountable corrections contact.
 4. After domain launch, submit the sitemap in Search Console and use query performance to refine titles and coverage.

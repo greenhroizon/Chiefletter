@@ -22,6 +22,4 @@ function drawFilters(){
 drawFilters();drawCards();
 if(search)search.addEventListener('input',drawCards);
 document.querySelectorAll('.topic-grid a[data-category]').forEach(link=>link.addEventListener('click',()=>{selected=link.dataset.category;drawFilters();drawCards()}));
-const nf=document.getElementById('newsletter-form');
-if(nf)nf.addEventListener('submit',e=>{e.preventDefault();alert('Thanks for your interest. The newsletter signup will be available when an email service is connected.');});
 })();

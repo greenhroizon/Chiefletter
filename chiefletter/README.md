@@ -1,21 +1,19 @@
-# Plaintext Journal
+# Chiefletter
 
-A responsive, dependency-free editorial site built with HTML, CSS, and JavaScript. The homepage has searchable, filterable story cards. Articles are stored in `articles.js`; run `node build.js` after editing them to produce static, individually indexable article pages under `articles/<slug>/index.html`.
+Chiefletter is a responsive, static technology publication. The home page includes searchable stories and category filters. Article content lives in `articles.js`; `node build.js` creates each article as a static page under `articles/<slug>/index.html` and refreshes `sitemap.xml` using the production URL in `site.config.json`.
 
-The starter publication contains 27 technology guides. Their rendered body text is at least 1,300 words per article, with section jump links, FAQs, and a YouTube resource link.
+The publication contains 35 technology guides, each with an article page, section jump links, FAQs, and a YouTube learning link. The site also includes About, Contact, Privacy, Cookies, Terms, Disclaimer, DMCA, Editorial, and Accessibility pages.
 
-## Before publishing
+## Publishing notes
 
-- Update `site.config.json` with the real production URL, then run `node build.js` again to generate `sitemap.xml`.
-- Replace the starter publisher/byline with the real editor or contributor names, biographies, and experience.
-- Add a monitored email address or functioning contact form to `contact.html` and replace the DMCA placeholder on `dmca.html`.
-- Review privacy, cookie, terms, and DMCA disclosures against the actual operator, hosting provider, jurisdiction, audience, and any analytics, newsletter, or advertising services. These starter pages are not legal advice and are not a guarantee of legal compliance.
-- Check the license and current availability for every Unsplash image; retain image/source records. Replace the Google Fonts and image CDN references if your hosting/privacy decisions require it.
-- The newsletter form is intentionally a non-collecting demo. Connect a provider and update the disclosures before enabling signup.
-- No ad code is installed. Before applying for AdSense, verify current Google policies, publisher account/site ownership, content quality, privacy/consent requirements for the audience, and a fully functional site. Approval is decided by Google and cannot be promised.
-- If serving personalized Google ads to people in the EEA, UK, or Switzerland, current Google guidance requires a Google-certified CMP integrated with the IAB TCF. Review Google's live requirements and current certified CMP list when configuring ads; policies and lists can change.
-- The keyword plan documents search intent, not measured volume. Validate priorities with actual query data before making traffic forecasts.
+- The site is configured for `https://chiefletter.com`. Change `site.config.json` if the production domain differs, then rebuild.
+- The contact page opens email to `contact@chiefletter.com`.
+- Images load from Unsplash. Check and retain the applicable license/source information for each image.
+- Google Fonts, Unsplash, YouTube, and the hosting provider process requests according to their own terms and privacy practices. The privacy and cookie pages describe the current site configuration.
+- No ad code or analytics are installed. Review current Google Publisher policies and applicable privacy/consent requirements before adding advertising. AdSense approval is determined by Google.
+- The keyword map records target queries and reader intent; it does not claim measured search volumes.
+- Legal pages are general site terms and policies. Adapt them to the publisher's legal identity, jurisdiction, and actual operations.
 
-## Local preview
+## Preview
 
-Open `index.html` in a browser, or serve the folder with any static web server. The article directories are generated output and can be regenerated from `articles.js`.
+Open `index.html` in a browser or serve the folder with a static web server. Re-run `node build.js` after editing `articles.js`.
