@@ -1,6 +1,6 @@
 # AdSense and publication checklist
 
-No AdSense or analytics code is installed. Approval is decided by Google and cannot be guaranteed by a site checklist.
+The AdSense loader is installed; no manual ad units or analytics are configured in the site files. Auto ads depend on the AdSense account settings. Approval is decided by Google and cannot be guaranteed by a site checklist.
 
 - Verify the live domain in the AdSense application flow and ensure the site is publicly accessible over HTTPS.
 - Review every article for accuracy, usefulness, originality, and current technical details. Add primary source links where readers need to verify changing claims.
