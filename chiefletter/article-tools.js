@@ -51,9 +51,25 @@
     saved = { checked: checks.map(() => false), note: '' };
     checks.forEach(check => { check.checked = false; });
     note.value = '';
+    tool.querySelector('[data-action-output]')?.replaceChildren();
+    if(tool.querySelector('[data-plan-time]'))tool.querySelector('[data-plan-time]').selectedIndex=0;
     try { localStorage.removeItem(key); } catch (_) {}
     updateProgress();
     status.textContent = 'Activity cleared.';
+  });
+
+  tool.querySelector('[data-action-plan]')?.addEventListener('click', () => {
+    const output=tool.querySelector('[data-action-output]');
+    output.replaceChildren();
+    const idea=note.value.trim();
+    if(!idea){output.textContent='Write one specific thing you want to try first, then build the plan.';return;}
+    const next=checks.find(check=>!check.checked)?.parentElement.querySelector('span')?.textContent.replace(/^STEP 0\d\s*/,'').trim()||'Review what worked and choose the next small step.';
+    const when=tool.querySelector('[data-plan-time]').value;
+    const heading=document.createElement('h3');heading.textContent='Your next step';
+    const summary=document.createElement('p');summary.textContent=`${when}: ${idea}`;
+    const followup=document.createElement('p');followup.textContent=`Use this check: ${next}`;
+    const copy=makeCopyButton(`${when}: ${idea}\nCheck: ${next}`);
+    output.append(heading,summary,followup,copy);
   });
 
   updateProgress();

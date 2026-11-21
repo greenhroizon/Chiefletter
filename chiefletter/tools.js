@@ -36,8 +36,31 @@
     workspace.dataset.currentTool = id;
     const specialFields=id==='typing-speed-test'?`<div class="typing-passage"><span>Type this passage</span><p data-typing-prompt></p></div><label class="tool-field" for="typing-entry"><span>Your typing</span><textarea id="typing-entry" data-typing-entry rows="5" placeholder="The timer starts when you begin typing." autocomplete="off" autocapitalize="off" spellcheck="false"></textarea></label>${fieldMarkup({name:'duration',label:'Time limit',type:'select',options:[['30','30 seconds'],['60','60 seconds']]})}`:'';
     const close=singleToolId?'':'<button type="button" class="tool-close" data-close-tool>Close</button>';
-    workspace.innerHTML = `<section class="tool-panel"><div class="tool-panel-heading"><div><p class="eyebrow">${tool.category}</p><h2>${tool.name}</h2><p>${tool.description}</p></div>${close}</div><div class="tool-form-area">${specialFields||fields.map(fieldMarkup).join('')}<div class="tool-buttons">${buttonMarkup(id)}</div><p class="tool-privacy">Input stays in this browser unless a tool description says otherwise.</p><div class="tool-output" aria-live="polite"></div></div></section>`;
+    workspace.innerHTML = `<section class="tool-panel"><div class="tool-panel-heading"><div><p class="eyebrow">${tool.category}</p><h2>${tool.name}</h2><p>${tool.description}</p></div>${close}</div><div class="tool-form-area"><div class="tool-quick-actions"><button type="button" class="secondary-button" data-example>Load example</button><button type="button" class="secondary-button" data-clear-fields>Clear fields</button><span data-tool-message role="status" aria-live="polite"></span></div>${specialFields||fields.map(fieldMarkup).join('')}<div class="tool-buttons">${buttonMarkup(id)}</div><p class="tool-privacy">Input stays in this browser unless a tool description says otherwise.</p><div class="tool-output" aria-live="polite"></div></div></section>`;
+    if(id==='typing-speed-test')workspace.querySelector('[data-example]').textContent='Reset passage';
     workspace.querySelector('[data-close-tool]')?.addEventListener('click', () => { workspace.hidden = true; workspace.innerHTML = ''; });
+    workspace.querySelector('[data-example]').addEventListener('click',()=>{
+      const samples={
+        'url-encoder':{source:'coffee & tea'},'url-decoder':{source:'name=Ada+Lovelace&city=London'},'json-formatter':{source:'{"name":"Mina","role":"developer","skills":["JavaScript","CSS"]}'},
+        'password-generator':{length:'24'},'qr-generator':{source:'https://chiefletter.com'},'word-counter':{source:'A short paragraph gives you a useful example to edit.'},
+        'html-entities':{mode:'encode',source:'<p>Tea & coffee</p>'},'base64-codec':{mode:'encode',source:'A note with café'},'case-converter':{source:'A Useful Example For A Small Tool',case:'snake'},
+        'slug-generator':{source:'A Clear, Useful Page Title'},'markdown-preview':{source:'# A useful heading\n\nWrite **one clear point** and a short list.\n\n- First item\n- Second item'},
+        'regex-tester':{pattern:'[A-Z][a-z]+',flags:'g',source:'Mina emailed Ada about the new build.'},'timestamp-converter':{timestamp:'1735689600'},
+        'csv-to-json':{source:'name,role,city\nMina,Developer,Delhi\nAda,Designer,London'},'text-diff':{left:'The page loads quickly.\nThe form saves.',right:'The page loads quickly on mobile.\nThe form saves.'},
+        'jwt-decoder':{source:'eyJhbGciOiJub25lIn0.eyJzdWIiOiJzYW1wbGUiLCJpYXQiOjE3MDAwMDAwMDB9.'},'css-formatter':{source:'button{color:#111;background:#fff;padding:8px 12px;}'},
+        'color-palette':{},'uuid-generator':{},'typing-speed-test':{}
+      }[id]||{};
+      Object.entries(samples).forEach(([name,value])=>{const field=workspace.querySelector(`[data-field="${name}"]`);if(field){field.value=value;field.dispatchEvent(new Event('input',{bubbles:true}));}});
+      if(id==='typing-speed-test')workspace.querySelector('[data-typing-reset]')?.click();else workspace.querySelector('[data-run]')?.click();
+      workspace.querySelector('[data-tool-message]').textContent=id==='typing-speed-test'?'Passage reset. Type to start the clock.':'Example loaded. Edit it or try the tool.';
+    });
+    workspace.querySelector('[data-clear-fields]').addEventListener('click',()=>{
+      workspace.querySelectorAll('[data-field], [data-typing-entry]').forEach(field=>{if(field.tagName==='SELECT')field.selectedIndex=0;else field.value='';field.dispatchEvent(new Event('input',{bubbles:true}));});
+      workspace.querySelector('.tool-output').replaceChildren();
+      workspace.querySelector('[data-download-qr]')?.setAttribute('disabled','');
+      workspace.querySelector('[data-typing-reset]')?.click();
+      workspace.querySelector('[data-tool-message]').textContent='Fields cleared.';
+    });
     bindTool(id, workspace);
     if (!singleToolId) { history.replaceState(null, '', `#${id}`); workspace.scrollIntoView({behavior:'smooth',block:'start'}); }
   }

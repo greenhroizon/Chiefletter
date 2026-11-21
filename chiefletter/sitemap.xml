@@ -11,6 +11,7 @@
   <url><loc>https://chiefletter.com/editorial.html</loc></url>
   <url><loc>https://chiefletter.com/accessibility.html</loc></url>
   <url><loc>https://chiefletter.com/tools.html</loc></url>
+  <url><loc>https://chiefletter.com/artifacts.html</loc></url>
   <url><loc>https://chiefletter.com/articles/learn-to-code-without-getting-overwhelmed/</loc></url>
   <url><loc>https://chiefletter.com/articles/portfolio-projects-that-show-how-you-think/</loc></url>
   <url><loc>https://chiefletter.com/articles/write-a-tech-resume-without-experience/</loc></url>
@@ -51,6 +52,11 @@
   <url><loc>https://chiefletter.com/articles/turn-a-vague-tech-task-into-a-clear-plan/</loc></url>
   <url><loc>https://chiefletter.com/articles/test-a-website-on-mobile-before-you-publish/</loc></url>
   <url><loc>https://chiefletter.com/articles/make-a-computer-science-study-plan-that-connects-to-work/</loc></url>
+  <url><loc>https://chiefletter.com/articles/debug-a-slow-website-without-guessing/</loc></url>
+  <url><loc>https://chiefletter.com/articles/deploy-your-first-cloud-service/</loc></url>
+  <url><loc>https://chiefletter.com/articles/test-code-that-handles-dates-and-time-zones/</loc></url>
+  <url><loc>https://chiefletter.com/articles/keep-api-keys-out-of-git/</loc></url>
+  <url><loc>https://chiefletter.com/articles/make-a-useful-on-call-handoff/</loc></url>
   <url><loc>https://chiefletter.com/tools/url-encoder/</loc></url>
   <url><loc>https://chiefletter.com/tools/url-decoder/</loc></url>
   <url><loc>https://chiefletter.com/tools/json-formatter/</loc></url>
@@ -71,4 +77,19 @@
   <url><loc>https://chiefletter.com/tools/typing-speed-test/</loc></url>
   <url><loc>https://chiefletter.com/tools/css-formatter/</loc></url>
   <url><loc>https://chiefletter.com/tools/jwt-decoder/</loc></url>
+  <url><loc>https://chiefletter.com/artifacts/cpu-instructions/</loc></url>
+  <url><loc>https://chiefletter.com/artifacts/wifi-packets/</loc></url>
+  <url><loc>https://chiefletter.com/artifacts/dns-lookup/</loc></url>
+  <url><loc>https://chiefletter.com/artifacts/https-handshake/</loc></url>
+  <url><loc>https://chiefletter.com/artifacts/ram-storage/</loc></url>
+  <url><loc>https://chiefletter.com/artifacts/browser-rendering/</loc></url>
+  <url><loc>https://chiefletter.com/artifacts/search-index/</loc></url>
+  <url><loc>https://chiefletter.com/artifacts/password-hashing/</loc></url>
+  <url><loc>https://chiefletter.com/artifacts/public-key-crypto/</loc></url>
+  <url><loc>https://chiefletter.com/artifacts/gps-location/</loc></url>
+  <url><loc>https://chiefletter.com/artifacts/camera-sensor/</loc></url>
+  <url><loc>https://chiefletter.com/artifacts/touchscreen/</loc></url>
+  <url><loc>https://chiefletter.com/artifacts/battery-charge/</loc></url>
+  <url><loc>https://chiefletter.com/artifacts/neural-network/</loc></url>
+  <url><loc>https://chiefletter.com/artifacts/cloud-request/</loc></url>
 </urlset>
