@@ -10,6 +10,7 @@
   <url><loc>https://chiefletter.com/cookies.html</loc></url>
   <url><loc>https://chiefletter.com/editorial.html</loc></url>
   <url><loc>https://chiefletter.com/accessibility.html</loc></url>
+  <url><loc>https://chiefletter.com/tools.html</loc></url>
   <url><loc>https://chiefletter.com/articles/learn-to-code-without-getting-overwhelmed/</loc></url>
   <url><loc>https://chiefletter.com/articles/portfolio-projects-that-show-how-you-think/</loc></url>
   <url><loc>https://chiefletter.com/articles/write-a-tech-resume-without-experience/</loc></url>
@@ -50,4 +51,24 @@
   <url><loc>https://chiefletter.com/articles/turn-a-vague-tech-task-into-a-clear-plan/</loc></url>
   <url><loc>https://chiefletter.com/articles/test-a-website-on-mobile-before-you-publish/</loc></url>
   <url><loc>https://chiefletter.com/articles/make-a-computer-science-study-plan-that-connects-to-work/</loc></url>
+  <url><loc>https://chiefletter.com/tools/url-encoder/</loc></url>
+  <url><loc>https://chiefletter.com/tools/url-decoder/</loc></url>
+  <url><loc>https://chiefletter.com/tools/json-formatter/</loc></url>
+  <url><loc>https://chiefletter.com/tools/password-generator/</loc></url>
+  <url><loc>https://chiefletter.com/tools/qr-generator/</loc></url>
+  <url><loc>https://chiefletter.com/tools/word-counter/</loc></url>
+  <url><loc>https://chiefletter.com/tools/color-palette/</loc></url>
+  <url><loc>https://chiefletter.com/tools/base64-codec/</loc></url>
+  <url><loc>https://chiefletter.com/tools/uuid-generator/</loc></url>
+  <url><loc>https://chiefletter.com/tools/case-converter/</loc></url>
+  <url><loc>https://chiefletter.com/tools/slug-generator/</loc></url>
+  <url><loc>https://chiefletter.com/tools/markdown-preview/</loc></url>
+  <url><loc>https://chiefletter.com/tools/regex-tester/</loc></url>
+  <url><loc>https://chiefletter.com/tools/timestamp-converter/</loc></url>
+  <url><loc>https://chiefletter.com/tools/html-entities/</loc></url>
+  <url><loc>https://chiefletter.com/tools/csv-to-json/</loc></url>
+  <url><loc>https://chiefletter.com/tools/text-diff/</loc></url>
+  <url><loc>https://chiefletter.com/tools/typing-speed-test/</loc></url>
+  <url><loc>https://chiefletter.com/tools/css-formatter/</loc></url>
+  <url><loc>https://chiefletter.com/tools/jwt-decoder/</loc></url>
 </urlset>

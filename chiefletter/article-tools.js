@@ -57,4 +57,65 @@
   });
 
   updateProgress();
+
+  document.querySelectorAll('[data-focus-timer]').forEach(timer => {
+    let seconds = 25 * 60;
+    let interval = null;
+    const display = timer.querySelector('[data-timer-display]');
+    const toggle = timer.querySelector('[data-timer-toggle]');
+    const status = timer.querySelector('[data-timer-status]');
+    const draw = () => { display.textContent = `${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`; };
+    toggle.addEventListener('click', () => {
+      if (interval) { clearInterval(interval); interval = null; toggle.textContent = 'Resume focus'; status.textContent = 'Paused'; return; }
+      if (seconds <= 0) seconds = 25 * 60;
+      toggle.textContent = 'Pause'; status.textContent = 'Focus session running';
+      interval = setInterval(() => { seconds--; draw(); if(seconds<=0){clearInterval(interval);interval=null;toggle.textContent='Start again';status.textContent='Session complete';} }, 1000);
+    });
+    timer.querySelector('[data-timer-reset]').addEventListener('click', () => { if(interval)clearInterval(interval);interval=null;seconds=25*60;draw();toggle.textContent='Start focus';status.textContent='25 minutes'; });
+    draw();
+  });
+
+  document.querySelectorAll('[data-career-planner]').forEach(planner => {
+    planner.querySelector('[data-plan-build]').addEventListener('click', () => {
+      const goal=planner.querySelector('[data-plan-goal]').value.trim();
+      const action=planner.querySelector('[data-plan-action]').value.trim();
+      const date=planner.querySelector('[data-plan-date]').value;
+      const result=planner.querySelector('[data-plan-result]'); result.replaceChildren();
+      if(!goal||!action){result.textContent='Add an outcome and one next action to build your plan.';return;}
+      const text=`Outcome: ${goal}\nNext action: ${action}${date?`\nDate: ${new Date(`${date}T00:00:00`).toLocaleDateString()}`:''}`;
+      const pre=document.createElement('pre');pre.textContent=text;result.append(pre,makeCopyButton(text));
+    });
+  });
+
+  document.querySelectorAll('[data-problem-note]').forEach(noteForm => {
+    noteForm.querySelector('[data-problem-build]').addEventListener('click', () => {
+      const fields=[['Goal',noteForm.querySelector('[data-problem-goal]').value],['Observed',noteForm.querySelector('[data-problem-result]').value],['Next check',noteForm.querySelector('[data-problem-next]').value]];
+      const filled=fields.filter(([,value])=>value.trim());
+      const result=noteForm.querySelector('[data-problem-output]');result.replaceChildren();
+      if(!filled.length){result.textContent='Add one observation to make a useful note.';return;}
+      const text=filled.map(([label,value])=>`${label}: ${value.trim()}`).join('\n');
+      const pre=document.createElement('pre');pre.textContent=text;result.append(pre,makeCopyButton(text));
+    });
+  });
+
+  document.querySelectorAll('[data-session-planner]').forEach(planner => {
+    planner.querySelector('[data-session-build]').addEventListener('click', () => {
+      const minutes=Number(planner.querySelector('[data-session-time]').value);
+      const steps=[...planner.querySelectorAll('[data-session-source] li')].map(item=>item.textContent);
+      const result=planner.querySelector('[data-session-result]');result.replaceChildren();
+      const heading=document.createElement('p');heading.textContent=`Use about ${Math.floor(minutes/steps.length)} minutes for each step.`;
+      const list=document.createElement('ol');steps.forEach(step=>{const item=document.createElement('li');item.textContent=step;list.append(item);});
+      result.append(heading,list);
+    });
+  });
+
+  function makeCopyButton(text) {
+    const button=document.createElement('button');button.type='button';button.className='secondary-button';button.textContent='Copy note';
+    button.addEventListener('click',()=>{
+      const done=()=>{button.textContent='Copied';setTimeout(()=>button.textContent='Copy note',1200);};
+      if(navigator.clipboard?.writeText)navigator.clipboard.writeText(text).then(done).catch(()=>copyFallback(text,done));else copyFallback(text,done);
+    });
+    return button;
+  }
+  function copyFallback(text,done){const area=document.createElement('textarea');area.value=text;area.style.position='fixed';area.style.opacity='0';document.body.append(area);area.select();try{document.execCommand('copy');done();}finally{area.remove();}}
 })();
