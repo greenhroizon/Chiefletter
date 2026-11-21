@@ -48,7 +48,22 @@
         'regex-tester':{pattern:'[A-Z][a-z]+',flags:'g',source:'Mina emailed Ada about the new build.'},'timestamp-converter':{timestamp:'1735689600'},
         'csv-to-json':{source:'name,role,city\nMina,Developer,Delhi\nAda,Designer,London'},'text-diff':{left:'The page loads quickly.\nThe form saves.',right:'The page loads quickly on mobile.\nThe form saves.'},
         'jwt-decoder':{source:'eyJhbGciOiJub25lIn0.eyJzdWIiOiJzYW1wbGUiLCJpYXQiOjE3MDAwMDAwMDB9.'},'css-formatter':{source:'button{color:#111;background:#fff;padding:8px 12px;}'},
-        'color-palette':{},'uuid-generator':{},'typing-speed-test':{}
+        'color-palette':{},'uuid-generator':{},'typing-speed-test':{},
+        'json-to-csv':{source:'[{"name":"Mina","role":"Developer"},{"name":"Ada","role":"Designer"}]'},
+        'csv-validator':{source:'name,role\nMina,Developer\nAda,Designer'},
+        'regex-replace':{pattern:'(cat)',replacement:'$1s',flags:'g',source:'A cat sat beside another cat.'},
+        'sql-formatter':{source:'select id,name from users where active=true order by name limit 10;'},
+        'html-structure-inspector':{source:'<main><h1>Page title</h1><img src="photo.jpg"><p>Short introduction.</p></main>'},
+        'html-to-text':{source:'<h1>Release notes</h1><p>Fixed a <strong>keyboard issue</strong>.</p>'},
+        'js-string-escaper':{mode:'escape',source:'A line with "quotes" and a newline\n.'},
+        'chmod-calculator':{owner:'7',group:'5',other:'5'},
+        'semver-comparator':{left:'2.4.0-rc.1',right:'2.4.0'},
+        'cron-explainer':{source:'*/15 9-17 * * 1-5'},
+        'wcag-contrast-checker':{foreground:'#171717',background:'#ffffff'},
+        'css-gradient-generator':{angle:'135',from:'#171717',to:'#eeeeee'},
+        'markdown-table-generator':{source:'Tool\tUse\nJSON\tFormat data\nDiff\tCompare text'},
+        'http-request-builder':{method:'GET',url:'https://api.example.com/items?limit=10',headers:'Accept: application/json',body:''},
+        'flexbox-playground':{direction:'row',justify:'space-between',align:'center',gap:'12',count:'4'}
       }[id]||{};
       Object.entries(samples).forEach(([name,value])=>{const field=workspace.querySelector(`[data-field="${name}"]`);if(field){field.value=value;field.dispatchEvent(new Event('input',{bubbles:true}));}});
       if(id==='typing-speed-test')workspace.querySelector('[data-typing-reset]')?.click();else workspace.querySelector('[data-run]')?.click();
@@ -75,7 +90,7 @@
       case 'base64-codec': return [select('mode','Conversion',[['encode','Encode text'],['decode','Decode Base64']]),text('source','Text to convert','Paste or type text here.')];
       case 'json-formatter': return [text('source','JSON input','Paste JSON here.')];
       case 'password-generator': return [input('length','Length','number','20'), select('sets','Character groups',[['all','Uppercase, lowercase, numbers, symbols'],['letters-numbers','Letters and numbers'],['letters','Letters only']])];
-      case 'qr-generator': return [text('source','Text or URL','Keep the content under 100 UTF-8 bytes for broad QR support.',3)];
+      case 'qr-generator': return [text('source','Text or URL','Keep the content under 106 UTF-8 bytes.',3)];
       case 'word-counter': return [text('source','Text','Paste or write text here.',8)];
       case 'case-converter': return [text('source','Text','Write or paste text.',6),select('case','Convert to',[['upper','UPPERCASE'],['lower','lowercase'],['title','Title Case'],['sentence','Sentence case'],['camel','camelCase'],['snake','snake_case'],['kebab','kebab-case']])];
       case 'markdown-preview': return [text('source','Markdown','## A heading\n\nWrite **bold text**, a list, or a [link](https://example.com).',8)];
@@ -84,6 +99,20 @@
       case 'csv-to-json': return [text('source','CSV input','First row becomes the object keys.',8)];
       case 'text-diff': return [text('left','Original text','Paste the original version.',6),text('right','Changed text','Paste the changed version.',6)];
       case 'jwt-decoder': return [text('source','JWT','Paste a token. It is decoded locally and never verified.',4)];
+      case 'json-to-csv': return [text('source','JSON array','Paste an array of objects.',8)];
+      case 'csv-validator': return [text('source','CSV text','Include a header row.',8)];
+      case 'regex-replace': return [input('pattern','Regular expression'),input('replacement','Replacement text'),select('flags','Options',[['g','Replace all matches'],['','Replace first match'],['gi','Replace all, ignore case']]),text('source','Text to change','Paste a representative sample.',8)];
+      case 'sql-formatter': return [text('source','SQL query','Paste a query to format.',8)];
+      case 'html-structure-inspector': case 'html-to-text': return [text('source','HTML input','Paste a snippet or document.',8)];
+      case 'js-string-escaper': return [select('mode','Conversion',[['escape','Escape as quoted string'],['decode','Decode quoted JSON string']]),text('source','String value','Paste text or a quoted string.',6)];
+      case 'chmod-calculator': return [input('owner','Owner permissions (0 to 7)','number','7'),input('group','Group permissions (0 to 7)','number','5'),input('other','Other permissions (0 to 7)','number','5')];
+      case 'semver-comparator': return [input('left','First version','text','1.2.3'),input('right','Second version','text','1.2.4')];
+      case 'cron-explainer': return [input('source','Five-field cron expression','text','*/15 9-17 * * 1-5')];
+      case 'wcag-contrast-checker': return [input('foreground','Text color','color','#171717'),input('background','Background color','color','#ffffff')];
+      case 'css-gradient-generator': return [input('angle','Angle in degrees','number','135'),input('from','Start color','color','#171717'),input('to','End color','color','#eeeeee')];
+      case 'markdown-table-generator': return [text('source','Rows','Separate cells with tabs or pipes. First row becomes the header.',8)];
+      case 'http-request-builder': return [select('method','HTTP method',['GET','POST','PUT','PATCH','DELETE'].map(method=>[method,method])),input('url','HTTP or HTTPS URL','url'),text('headers','Headers','One Name: value pair per line.',4),text('body','Request body','Optional text body.',5)];
+      case 'flexbox-playground': return [select('direction','Flex direction',[['row','row'],['column','column'],['row-reverse','row-reverse'],['column-reverse','column-reverse']]),select('justify','Justify content',['flex-start','center','flex-end','space-between','space-around'].map(value=>[value,value])),select('align','Align items',['stretch','flex-start','center','flex-end','baseline'].map(value=>[value,value])),input('gap','Gap in pixels','number','12'),input('count','Number of items','number','4')];
       default: return [];
     }
   }
@@ -162,6 +191,10 @@
       });
     }
     if (id === 'uuid-generator') run();
+    if (id === 'flexbox-playground') {
+      root.querySelectorAll('[data-field]').forEach(field=>field.addEventListener('input',run));
+      run();
+    }
   }
 
   function runTool(id, root, api) {
@@ -188,6 +221,21 @@
       case 'text-diff': renderDiff(root, value('left'), value('right')); break;
       case 'css-formatter': setText('Formatted CSS',formatCss(source)); break;
       case 'jwt-decoder': decodeJwt(source,setText); break;
+      case 'json-to-csv': setText('CSV output',jsonToCsv(source)); break;
+      case 'csv-validator': setText('CSV validation',validateCsv(source)); break;
+      case 'regex-replace': setText('Replacement preview',regexReplace(root)); break;
+      case 'sql-formatter': setText('Formatted SQL',formatSql(source)); break;
+      case 'html-structure-inspector': setText('HTML structure',inspectHtml(source)); break;
+      case 'html-to-text': setText('Extracted text',htmlToText(source)); break;
+      case 'js-string-escaper': setText(value('mode')==='escape'?'Quoted string':'Decoded string',value('mode')==='escape'?JSON.stringify(source):decodeQuotedString(source)); break;
+      case 'chmod-calculator': setText('Permission mode',chmodMode(root)); break;
+      case 'semver-comparator': setText('Version comparison',compareVersions(value('left'),value('right'))); break;
+      case 'cron-explainer': setText('Cron fields',explainCron(source)); break;
+      case 'wcag-contrast-checker': renderContrast(root); break;
+      case 'css-gradient-generator': renderGradient(root); break;
+      case 'markdown-table-generator': setText('Markdown table',markdownTable(source)); break;
+      case 'http-request-builder': setText('curl command',buildCurl(root)); break;
+      case 'flexbox-playground': renderFlexbox(root); break;
       default: throw new Error('This tool is unavailable.');
     }
   }
@@ -331,17 +379,34 @@
   }
 
   function parseCsv(text) {
-    const rows=[]; let row=[], cell='', quoted=false;
-    for(let i=0;i<text.length;i++) {
+    text=text.replace(/^\uFEFF/,'');
+    const rows=[];let row=[],cell='',state='plain';
+    const finishCell=()=>{row.push(cell);cell='';state='plain';};
+    const finishRow=()=>{finishCell();if(row.some(value=>value!==''))rows.push(row);row=[];};
+    for(let i=0;i<text.length;i++){
       const c=text[i];
-      if(c==='"' && quoted && text[i+1]==='"'){cell+='"';i++;}
-      else if(c==='"') quoted=!quoted;
-      else if(c===',' && !quoted){row.push(cell);cell='';}
-      else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&text[i+1]==='\n')i++;row.push(cell);if(row.some(value=>value!==''))rows.push(row);row=[];cell='';}
-      else cell+=c;
+      if(state==='quoted'){
+        if(c==='"'&&text[i+1]==='"'){cell+='"';i++;}
+        else if(c==='"')state='closed';
+        else cell+=c;
+        continue;
+      }
+      if(state==='closed'){
+        if(c===','){finishCell();continue;}
+        if(c==='\r'||c==='\n'){if(c==='\r'&&text[i+1]==='\n')i++;finishRow();continue;}
+        if(c===' '||c==='\t')continue;
+        throw new Error('Unexpected text after a closing quote. Check the CSV field.');
+      }
+      if(c==='"'){
+        if(cell.length)throw new Error('A quote appears inside an unquoted field. Put the whole field in quotes and escape inner quotes by doubling them.');
+        state='quoted';continue;
+      }
+      if(c===','){finishCell();continue;}
+      if(c==='\r'||c==='\n'){if(c==='\r'&&text[i+1]==='\n')i++;finishRow();continue;}
+      cell+=c;
     }
-    row.push(cell); if(row.some(value=>value!==''))rows.push(row);
-    if(quoted) throw new Error('A quoted field is missing its closing quote.');
+    if(state==='quoted')throw new Error('A quoted field is missing its closing quote.');
+    if(state==='closed'||cell.length||row.length)finishRow();
     return rows;
   }
   function csvToObjects(text) {
@@ -373,6 +438,176 @@
     const header=decode(parts[0]), payload=decode(parts[1]);
     const exp=payload.exp?`\nExpires: ${new Date(payload.exp*1000).toLocaleString()}${payload.exp*1000<Date.now()?' (expired)':''}`:'';
     setText('Decoded header and payload',`Header\n${JSON.stringify(header,null,2)}\n\nPayload\n${JSON.stringify(payload,null,2)}${exp}\n\nThe signature was not verified.`);
+  }
+
+  function jsonToCsv(source) {
+    const rows=JSON.parse(source);
+    if(!Array.isArray(rows)||!rows.length||rows.some(row=>!row||typeof row!=='object'||Array.isArray(row)))throw new Error('Enter a non-empty JSON array of objects.');
+    const headers=[...new Set(rows.flatMap(row=>Object.keys(row)))];
+    if(!headers.length)throw new Error('The objects have no fields to export.');
+    const cell=value=>{const text=value===null||value===undefined?'':typeof value==='object'?JSON.stringify(value):String(value);return /[",\r\n]/.test(text)?`"${text.replace(/"/g,'""')}"`:text;};
+    return [headers.map(cell).join(','),...rows.map(row=>headers.map(key=>cell(row[key])).join(','))].join('\n');
+  }
+
+  function validateCsv(source) {
+    const rows=parseCsv(source);if(!rows.length)throw new Error('Add a header row and at least one data row.');
+    const headers=rows[0].map(value=>value.trim()),issues=[];
+    if(headers.some(value=>!value))issues.push('The header row has an empty column name.');
+    const duplicates=headers.filter((value,index)=>value&&headers.indexOf(value)!==index);
+    if(duplicates.length)issues.push(`Duplicate headers: ${[...new Set(duplicates)].join(', ')}.`);
+    rows.slice(1).forEach((row,index)=>{if(row.length!==headers.length)issues.push(`Row ${index+2} has ${row.length} fields. Expected ${headers.length}.`);});
+    return issues.length?issues.join('\n'):`No structural issues found in ${rows.length-1} data row${rows.length===2?'':'s'} with ${headers.length} column${headers.length===1?'':'s'}.`;
+  }
+
+  function regexReplace(root) {
+    const pattern=root.querySelector('[data-field="pattern"]').value;
+    const flags=root.querySelector('[data-field="flags"]').value;
+    const replacement=root.querySelector('[data-field="replacement"]').value;
+    return root.querySelector('[data-field="source"]').value.replace(new RegExp(pattern,flags),replacement);
+  }
+
+  function formatSql(source) {
+    const keywords=new Set(['SELECT','FROM','WHERE','GROUP','ORDER','HAVING','LIMIT','OFFSET','UNION','INSERT','INTO','VALUES','UPDATE','SET','DELETE','JOIN','LEFT','RIGHT','INNER','OUTER','ON','AND','OR']);
+    const tokens=source.match(/\s+|--[^\n]*|\/\*[\s\S]*?\*\/|'(?:''|[^'])*'|"(?:""|[^"])*"|`(?:``|[^`])*`|[(),;]|[^\s(),;]+/g)||[];
+    let output='',lineStart=true,depth=0;
+    const put=text=>{if(lineStart&&text.trim())output+='  '.repeat(Math.max(0,depth));output+=text;if(text.includes('\n'))lineStart=true;else if(text.trim())lineStart=false;};
+    for(let i=0;i<tokens.length;i++){
+      const token=tokens[i],upper=token.toUpperCase();
+      if(/^\s+$/.test(token)){if(!lineStart&&!output.endsWith(' '))output+=' ';continue;}
+      if(token==='('){if(!output.endsWith(' '))output+=' ';put('(');depth++;continue;}
+      if(token===')'){depth=Math.max(0,depth-1);put(')');continue;}
+      if(token===','){put(',\n');lineStart=true;continue;}
+      if(token===';'){put(';\n');lineStart=true;continue;}
+      if(keywords.has(upper)&&['SELECT','FROM','WHERE','GROUP','ORDER','HAVING','LIMIT','OFFSET','UNION','INSERT','UPDATE','DELETE','JOIN','LEFT','RIGHT','INNER','ON','SET','VALUES'].includes(upper)){
+        if(output.trim()) {output=output.replace(/[ \t]+$/,'')+'\n';lineStart=true;}
+        put(upper+(upper==='GROUP'||upper==='ORDER'?' ':' '));
+        if((upper==='GROUP'||upper==='ORDER')&&tokens[i+1]?.trim().toUpperCase()==='BY'){i++;put('BY ');}
+        continue;
+      }
+      put(token);
+    }
+    return output.trim()||'Enter a SQL query.';
+  }
+
+  function inspectHtml(source) {
+    const doc=new DOMParser().parseFromString(source,'text/html');
+    const counts={},outline=[],issues=[];
+    doc.body.querySelectorAll('*').forEach(element=>{
+      counts[element.tagName.toLowerCase()]=(counts[element.tagName.toLowerCase()]||0)+1;
+      if(element.tagName==='IMG'&&!element.hasAttribute('alt'))issues.push('Image without an alt attribute.');
+      if(/^H[1-6]$/.test(element.tagName))outline.push(`${element.tagName.toLowerCase()} ${element.textContent.trim().replace(/\s+/g,' ').slice(0,90)}`);
+    });
+    const summary=Object.entries(counts).sort((a,b)=>a[0].localeCompare(b[0])).map(([tag,count])=>`${tag}: ${count}`).join('\n')||'No elements found.';
+    return `Element counts\n${summary}\n\nHeadings\n${outline.join('\n')||'No headings found.'}\n\nChecks\n${issues.join('\n')||'No images missing an alt attribute.'}`;
+  }
+
+  function htmlToText(source) {
+    const doc=new DOMParser().parseFromString(source,'text/html');
+    doc.querySelectorAll('script,style,noscript,template').forEach(node=>node.remove());
+    doc.querySelectorAll('br,hr').forEach(node=>node.replaceWith('\n'));
+    doc.querySelectorAll('p,div,section,article,li,h1,h2,h3,h4,h5,h6,tr').forEach(node=>node.append('\n'));
+    return (doc.body.textContent||'').replace(/[\t ]+/g,' ').replace(/ *\n */g,'\n').replace(/\n{3,}/g,'\n\n').trim()||'No readable text found.';
+  }
+
+  function decodeQuotedString(source) {
+    const value=JSON.parse(source.trim());
+    if(typeof value!=='string')throw new Error('Enter one quoted JSON string.');
+    return value;
+  }
+
+  function chmodMode(root) {
+    const digits=['owner','group','other'].map(name=>root.querySelector(`[data-field="${name}"]`).value);
+    if(digits.some(value=>! /^[0-7]$/.test(value)))throw new Error('Enter one permission digit from 0 to 7 for each group.');
+    const symbolic=digits.map(value=>{const n=Number(value);return `${n&4?'r':'-'}${n&2?'w':'-'}${n&1?'x':'-'}`;}).join('');
+    return `Octal mode: ${digits.join('')}\nSymbolic mode: ${symbolic}\nCommand: chmod ${digits.join('')} FILE`;
+  }
+
+  function parseSemver(value) {
+    const match=value.trim().replace(/^v/,'').match(/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z.-]+))?(?:\+[0-9A-Za-z.-]+)?$/);
+    if(!match)throw new Error('Use major.minor.patch, with an optional prerelease such as 2.1.0-rc.1.');
+    return {core:match.slice(1,4).map(Number),pre:match[4]?match[4].split('.'):null};
+  }
+  function compareVersions(left,right) {
+    const a=parseSemver(left),b=parseSemver(right);let order=0;
+    for(let i=0;i<3&&!order;i++)order=Math.sign(a.core[i]-b.core[i]);
+    if(!order&&a.pre&&b.pre){for(let i=0;i<Math.max(a.pre.length,b.pre.length)&&!order;i++){const x=a.pre[i],y=b.pre[i];if(x===undefined)order=-1;else if(y===undefined)order=1;else if(x===y)order=0;else if(/^\d+$/.test(x)&&/^\d+$/.test(y))order=Math.sign(Number(x)-Number(y));else if(/^\d+$/.test(x))order=-1;else if(/^\d+$/.test(y))order=1;else order=x<y?-1:1;}}
+    if(!order&&Boolean(a.pre)!==Boolean(b.pre))order=a.pre?-1:1;
+    return order===0?'Versions have equal precedence.':order<0?`${left.trim()} is older than ${right.trim()}.`:`${left.trim()} is newer than ${right.trim()}.`;
+  }
+
+  function explainCron(source) {
+    const parts=source.trim().split(/\s+/);if(parts.length!==5)throw new Error('Enter exactly five fields: minute hour day-of-month month day-of-week.');
+    const fields=[['Minute',0,59],['Hour',0,23],['Day of month',1,31],['Month',1,12],['Day of week',0,7]];
+    const lines=parts.map((part,index)=>{const [label,min,max]=fields[index];validateCronField(part,min,max);return `${label}: ${part==='*'?'every allowed value':part}`;});
+    return `${lines.join('\n')}\n\nDay-of-month and day-of-week behavior varies by scheduler. Confirm the target system’s rules and time zone.`;
+  }
+  function validateCronField(field,min,max) {
+    for(const piece of field.split(',')){
+      if(!piece)throw new Error('A comma-separated field contains an empty value.');
+      const [base,step,...rest]=piece.split('/');if(rest.length||step!==undefined&&(!/^\d+$/.test(step)||Number(step)<1))throw new Error(`Invalid step in “${piece}”.`);
+      if(base==='*')continue;
+      const range=base.split('-');if(range.length>2)throw new Error(`Invalid range “${base}”.`);
+      const values=range.map(value=>{if(!/^\d+$/.test(value))throw new Error(`Use numeric values in “${base}”.`);return Number(value);});
+      if(values.some(value=>value<min||value>max)||values.length===2&&values[0]>values[1])throw new Error(`Value “${base}” is outside ${min} to ${max}.`);
+    }
+  }
+
+  function rgbFromHex(value) {
+    let hex=value.replace('#','');if(/^[0-9a-f]{3}$/i.test(hex))hex=[...hex].map(char=>char+char).join('');
+    if(!/^[0-9a-f]{6}$/i.test(hex))throw new Error('Choose a valid three- or six-digit hex color.');
+    return [0,2,4].map(index=>parseInt(hex.slice(index,index+2),16)/255);
+  }
+  function luminance(rgb) {const c=rgb.map(value=>value<=.04045?value/12.92:((value+.055)/1.055)**2.4);return .2126*c[0]+.7152*c[1]+.0722*c[2];}
+  function renderContrast(root) {
+    const fg=root.querySelector('[data-field="foreground"]').value,bg=root.querySelector('[data-field="background"]').value;
+    const ratio=(Math.max(luminance(rgbFromHex(fg)),luminance(rgbFromHex(bg)))+.05)/(Math.min(luminance(rgbFromHex(fg)),luminance(rgbFromHex(bg)))+.05);
+    const out=root.querySelector('.tool-output');out.replaceChildren();
+    const heading=document.createElement('h3');heading.textContent=`Contrast ratio ${ratio.toFixed(2)}:1`;
+    const sample=document.createElement('div');sample.className='contrast-sample';sample.style.color=fg;sample.style.backgroundColor=bg;sample.textContent='Sample text at the selected colors.';
+    const note=document.createElement('p');note.textContent=`Normal text AA: ${ratio>=4.5?'Pass':'Does not pass'} · Large text AA: ${ratio>=3?'Pass':'Does not pass'}`;out.append(heading,sample,note);
+  }
+
+  function renderGradient(root) {
+    const angle=Math.max(0,Math.min(360,Number(root.querySelector('[data-field="angle"]').value)||0));
+    const from=root.querySelector('[data-field="from"]').value,to=root.querySelector('[data-field="to"]').value;
+    const css=`background: linear-gradient(${angle}deg, ${from}, ${to});`,out=root.querySelector('.tool-output');out.replaceChildren();
+    const heading=document.createElement('h3');heading.textContent='Gradient preview';
+    const preview=document.createElement('div');preview.className='gradient-preview';preview.style.background=`linear-gradient(${angle}deg,${from},${to})`;
+    const pre=document.createElement('pre');pre.textContent=css;
+    const copy=document.createElement('button');copy.type='button';copy.className='secondary-button';copy.textContent='Copy CSS';copy.addEventListener('click',()=>copyText(css,copy));out.append(heading,preview,pre,copy);
+  }
+
+  function markdownTable(source) {
+    const rows=source.trim().split(/\r?\n/).filter(Boolean).map(line=>line.includes('\t')?line.split('\t'):line.replace(/^\||\|$/g,'').split('|'));
+    if(!rows.length)throw new Error('Add a header row and at least one data row.');
+    const width=Math.max(...rows.map(row=>row.length));
+    const normalize=row=>Array.from({length:width},(_,index)=>(row[index]||'').trim().replace(/\|/g,'\\|'));
+    const header=normalize(rows[0]);
+    return `| ${header.join(' | ')} |\n| ${header.map(()=> '---').join(' | ')} |\n${rows.slice(1).map(row=>`| ${normalize(row).join(' | ')} |`).join('\n')}`;
+  }
+
+  function shellQuote(value) {return `'${String(value).replace(/'/g,"'\\''")}'`;}
+  function buildCurl(root) {
+    const method=root.querySelector('[data-field="method"]').value,url=root.querySelector('[data-field="url"]').value.trim();
+    let parsed;try{parsed=new URL(url);}catch(_){throw new Error('Enter a complete HTTP or HTTPS URL.');}
+    if(!['http:','https:'].includes(parsed.protocol)||parsed.username||parsed.password)throw new Error('Use an HTTP or HTTPS URL without embedded credentials.');
+    const lines=root.querySelector('[data-field="headers"]').value.split(/\r?\n/).map(line=>line.trim()).filter(Boolean);
+    for(const line of lines)if(!/^[!#$%&'*+.^_`|~0-9A-Za-z-]+\s*:\s*[^\r\n]*$/.test(line))throw new Error(`Invalid header: ${line}`);
+    const parts=['curl','--request',shellQuote(method),shellQuote(url)];
+    lines.forEach(line=>parts.push('--header',shellQuote(line)));
+    const body=root.querySelector('[data-field="body"]').value;if(body)parts.push('--data-binary',shellQuote(body));
+    return parts.join(' ');
+  }
+
+  function renderFlexbox(root) {
+    const direction=root.querySelector('[data-field="direction"]').value,justify=root.querySelector('[data-field="justify"]').value,align=root.querySelector('[data-field="align"]').value;
+    const gap=Math.max(0,Math.min(80,Number(root.querySelector('[data-field="gap"]').value)||0)),count=Math.max(1,Math.min(10,Number(root.querySelector('[data-field="count"]').value)||1));
+    const out=root.querySelector('.tool-output');out.replaceChildren();
+    const heading=document.createElement('h3');heading.textContent='Live layout';
+    const stage=document.createElement('div');stage.className='flex-playground';stage.style.flexDirection=direction;stage.style.justifyContent=justify;stage.style.alignItems=align;stage.style.gap=`${gap}px`;
+    for(let i=1;i<=count;i++){const item=document.createElement('span');item.textContent=`Item ${i}`;stage.append(item);}
+    const css=`display: flex;\nflex-direction: ${direction};\njustify-content: ${justify};\nalign-items: ${align};\ngap: ${gap}px;`;
+    const pre=document.createElement('pre');pre.textContent=css;const copy=document.createElement('button');copy.type='button';copy.className='secondary-button';copy.textContent='Copy CSS';copy.addEventListener('click',()=>copyText(css,copy));out.append(heading,stage,pre,copy);
   }
 
   function copyText(text,button) {

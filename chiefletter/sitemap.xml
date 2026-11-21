@@ -11,7 +11,6 @@
   <url><loc>https://chiefletter.com/editorial.html</loc></url>
   <url><loc>https://chiefletter.com/accessibility.html</loc></url>
   <url><loc>https://chiefletter.com/tools.html</loc></url>
-  <url><loc>https://chiefletter.com/artifacts.html</loc></url>
   <url><loc>https://chiefletter.com/articles/learn-to-code-without-getting-overwhelmed/</loc></url>
   <url><loc>https://chiefletter.com/articles/portfolio-projects-that-show-how-you-think/</loc></url>
   <url><loc>https://chiefletter.com/articles/write-a-tech-resume-without-experience/</loc></url>
@@ -77,19 +76,19 @@
   <url><loc>https://chiefletter.com/tools/typing-speed-test/</loc></url>
   <url><loc>https://chiefletter.com/tools/css-formatter/</loc></url>
   <url><loc>https://chiefletter.com/tools/jwt-decoder/</loc></url>
-  <url><loc>https://chiefletter.com/artifacts/cpu-instructions/</loc></url>
-  <url><loc>https://chiefletter.com/artifacts/wifi-packets/</loc></url>
-  <url><loc>https://chiefletter.com/artifacts/dns-lookup/</loc></url>
-  <url><loc>https://chiefletter.com/artifacts/https-handshake/</loc></url>
-  <url><loc>https://chiefletter.com/artifacts/ram-storage/</loc></url>
-  <url><loc>https://chiefletter.com/artifacts/browser-rendering/</loc></url>
-  <url><loc>https://chiefletter.com/artifacts/search-index/</loc></url>
-  <url><loc>https://chiefletter.com/artifacts/password-hashing/</loc></url>
-  <url><loc>https://chiefletter.com/artifacts/public-key-crypto/</loc></url>
-  <url><loc>https://chiefletter.com/artifacts/gps-location/</loc></url>
-  <url><loc>https://chiefletter.com/artifacts/camera-sensor/</loc></url>
-  <url><loc>https://chiefletter.com/artifacts/touchscreen/</loc></url>
-  <url><loc>https://chiefletter.com/artifacts/battery-charge/</loc></url>
-  <url><loc>https://chiefletter.com/artifacts/neural-network/</loc></url>
-  <url><loc>https://chiefletter.com/artifacts/cloud-request/</loc></url>
+  <url><loc>https://chiefletter.com/tools/json-to-csv/</loc></url>
+  <url><loc>https://chiefletter.com/tools/csv-validator/</loc></url>
+  <url><loc>https://chiefletter.com/tools/regex-replace/</loc></url>
+  <url><loc>https://chiefletter.com/tools/sql-formatter/</loc></url>
+  <url><loc>https://chiefletter.com/tools/html-structure-inspector/</loc></url>
+  <url><loc>https://chiefletter.com/tools/html-to-text/</loc></url>
+  <url><loc>https://chiefletter.com/tools/js-string-escaper/</loc></url>
+  <url><loc>https://chiefletter.com/tools/chmod-calculator/</loc></url>
+  <url><loc>https://chiefletter.com/tools/semver-comparator/</loc></url>
+  <url><loc>https://chiefletter.com/tools/cron-explainer/</loc></url>
+  <url><loc>https://chiefletter.com/tools/wcag-contrast-checker/</loc></url>
+  <url><loc>https://chiefletter.com/tools/css-gradient-generator/</loc></url>
+  <url><loc>https://chiefletter.com/tools/markdown-table-generator/</loc></url>
+  <url><loc>https://chiefletter.com/tools/http-request-builder/</loc></url>
+  <url><loc>https://chiefletter.com/tools/flexbox-playground/</loc></url>
 </urlset>
