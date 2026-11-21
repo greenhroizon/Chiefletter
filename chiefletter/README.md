@@ -12,7 +12,7 @@ The publication contains 40 technology guides, each with section jump links, FAQ
 - Article notes and checklist progress use local browser storage. Readers can clear an article activity from that page.
 - Images load from Unsplash. Check and retain the applicable license/source information for each image.
 - Google Fonts, Unsplash, YouTube, and the hosting provider process requests according to their own terms and privacy practices. The privacy and cookie pages describe the current site configuration.
-- The AdSense loader is installed. There are no manually coded ad units; Auto ads depend on the AdSense account settings. No analytics are configured. Review current Google Publisher policies and applicable privacy/consent requirements before adding advertising. AdSense approval is determined by Google.
+- The AdSense loader and Google Analytics tag `G-KL069686WS` are installed site-wide. There are no manually coded ad units; Auto ads depend on the AdSense account settings. Review current Google Publisher policies and applicable privacy/consent requirements when configuring analytics and advertising. AdSense approval is determined by Google.
 - The keyword map records target queries and reader intent; it does not claim measured search volumes.
 - Legal pages are general site terms and policies. Adapt them to the publisher's legal identity, jurisdiction, and actual operations.
 
