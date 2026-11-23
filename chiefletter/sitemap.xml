@@ -56,6 +56,8 @@
   <url><loc>https://chiefletter.com/articles/test-code-that-handles-dates-and-time-zones/</loc></url>
   <url><loc>https://chiefletter.com/articles/keep-api-keys-out-of-git/</loc></url>
   <url><loc>https://chiefletter.com/articles/make-a-useful-on-call-handoff/</loc></url>
+  <url><loc>https://chiefletter.com/articles/debug-javascript-errors-in-the-browser/</loc></url>
+  <url><loc>https://chiefletter.com/articles/build-a-safe-browser-code-playground/</loc></url>
   <url><loc>https://chiefletter.com/tools/url-encoder/</loc></url>
   <url><loc>https://chiefletter.com/tools/url-decoder/</loc></url>
   <url><loc>https://chiefletter.com/tools/json-formatter/</loc></url>
@@ -91,4 +93,10 @@
   <url><loc>https://chiefletter.com/tools/markdown-table-generator/</loc></url>
   <url><loc>https://chiefletter.com/tools/http-request-builder/</loc></url>
   <url><loc>https://chiefletter.com/tools/flexbox-playground/</loc></url>
+  <url><loc>https://chiefletter.com/tools/html-css-js-editor/</loc></url>
+  <url><loc>https://chiefletter.com/tools/image-compressor/</loc></url>
+  <url><loc>https://chiefletter.com/tools/image-resizer/</loc></url>
+  <url><loc>https://chiefletter.com/tools/ipv4-subnet-calculator/</loc></url>
+  <url><loc>https://chiefletter.com/tools/css-unit-converter/</loc></url>
+  <url><loc>https://chiefletter.com/tools/css-box-shadow-generator/</loc></url>
 </urlset>

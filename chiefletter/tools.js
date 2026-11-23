@@ -31,6 +31,11 @@
   function openTool(id) {
     const tool = tools.find(item => item.id === id);
     if (!tool || !workspace) return;
+    if (id === 'html-css-js-editor') { renderCodeEditor(workspace); return; }
+    if (id === 'image-compressor' || id === 'image-resizer') { renderImageTool(workspace,id); return; }
+    if (id === 'ipv4-subnet-calculator') { renderSubnetCalculator(workspace); return; }
+    if (id === 'css-unit-converter') { renderCssUnitConverter(workspace); return; }
+    if (id === 'css-box-shadow-generator') { renderShadowGenerator(workspace); return; }
     const fields = fieldDefinitions(id);
     workspace.hidden = false;
     workspace.dataset.currentTool = id;
@@ -78,6 +83,105 @@
     });
     bindTool(id, workspace);
     if (!singleToolId) { history.replaceState(null, '', `#${id}`); workspace.scrollIntoView({behavior:'smooth',block:'start'}); }
+  }
+
+  function renderCodeEditor(root) {
+    const starter={
+      html:'<main class="card">\n  <p class="eyebrow">A small experiment</p>\n  <h1>Hello, web.</h1>\n  <p>Change the code, then run the preview.</p>\n  <button id="try-button" type="button">Try the interaction</button>\n  <p id="status" aria-live="polite"></p>\n</main>',
+      css:'* { box-sizing: border-box; }\nbody {\n  margin: 0;\n  padding: 2rem;\n  font: 16px/1.5 system-ui, sans-serif;\n  color: #171717;\n  background: #f4f4f2;\n}\n.card {\n  max-width: 36rem;\n  margin: 3rem auto;\n  padding: 2rem;\n  border: 1px solid #ddd;\n  border-radius: 12px;\n  background: white;\n}\nh1 { letter-spacing: -0.04em; }\nbutton { padding: .7rem 1rem; cursor: pointer; }',
+      js:"document.querySelector('#try-button').addEventListener('click', () => {\n  document.querySelector('#status').textContent = 'The button works.';\n});"
+    };
+    let saved={};
+    try { saved=JSON.parse(localStorage.getItem('chiefletter-code-editor')||'{}')||{}; } catch {}
+    const code={html:typeof saved.html==='string'?saved.html:starter.html,css:typeof saved.css==='string'?saved.css:starter.css,js:typeof saved.js==='string'?saved.js:starter.js};
+    root.hidden=false;
+    root.innerHTML=`<section class="tool-panel code-editor-panel"><div class="tool-quick-actions code-editor-actions"><button type="button" data-editor-run>Run preview</button><button type="button" class="secondary-button" data-editor-save>Save draft</button><button type="button" class="secondary-button" data-editor-copy>Copy active pane</button><button type="button" class="secondary-button" data-editor-download>Download HTML</button><button type="button" class="secondary-button" data-editor-reset>Reset example</button><span data-editor-status role="status" aria-live="polite">Ready. Code runs in this browser.</span></div><div class="code-editor-layout"><section class="code-source" aria-label="Code editor"><div class="code-tabs" role="tablist" aria-label="Code language"><button type="button" role="tab" aria-selected="true" data-editor-tab="html">HTML</button><button type="button" role="tab" aria-selected="false" data-editor-tab="css">CSS</button><button type="button" role="tab" aria-selected="false" data-editor-tab="js">JavaScript</button></div><label class="visually-hidden" for="editor-html">HTML source</label><textarea id="editor-html" data-editor-source="html" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea><label class="visually-hidden" for="editor-css">CSS source</label><textarea id="editor-css" data-editor-source="css" spellcheck="false" autocapitalize="off" autocomplete="off" hidden></textarea><label class="visually-hidden" for="editor-js">JavaScript source</label><textarea id="editor-js" data-editor-source="js" spellcheck="false" autocapitalize="off" autocomplete="off" hidden></textarea><div class="editor-statusline"><span data-editor-language>HTML</span><span data-editor-count>0 lines</span><span>Local preview</span></div></section><section class="code-preview-section"><div class="code-preview-bar"><strong>Preview</strong><label for="editor-viewport">Viewport</label><select id="editor-viewport" data-editor-viewport><option value="100%">Responsive</option><option value="390px">Phone · 390 px</option><option value="768px">Tablet · 768 px</option><option value="1024px">Desktop · 1024 px</option></select></div><iframe title="Code preview" data-editor-preview sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe><p class="editor-footnote">The preview is isolated from the Chiefletter page. Only run code you trust.</p></section></div></section>`;
+    const panes=[...root.querySelectorAll('[data-editor-source]')];
+    const preview=root.querySelector('[data-editor-preview]');
+    const status=root.querySelector('[data-editor-status]');
+    let active='html';
+    panes.forEach(pane=>{pane.value=code[pane.dataset.editorSource];pane.addEventListener('input',()=>updateCount());});
+    function updateCount(){const pane=root.querySelector(`[data-editor-source="${active}"]`);root.querySelector('[data-editor-count]').textContent=`${pane.value.split('\n').length} lines`;}
+    function run(){
+      const value=Object.fromEntries(panes.map(p=>[p.dataset.editorSource,p.value]));
+      const errorHandler='<script>window.onerror=function(message,source,line){parent.postMessage({type:"chiefletter-editor-error",message:String(message),line:line},"*")};</script>';
+      const styles=`<style>${value.css}</style>`;
+      const script='<script>'+value.js.replace(/<\/script/gi,'<\\/script')+'</script>';
+      let page=value.html;
+      if(/<head\b[^>]*>/i.test(page)) page=page.replace(/<head\b[^>]*>/i,match=>match+styles+errorHandler);
+      else page=`<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1">${styles}${errorHandler}</head><body>${page}</body></html>`;
+      if(/<\/body>/i.test(page)) page=page.replace(/<\/body>/i,script+'</body>'); else page+=script;
+      preview.srcdoc=page;
+      status.textContent='Preview updated.';
+    }
+    root.querySelectorAll('[data-editor-tab]').forEach(tab=>tab.addEventListener('click',()=>{
+      active=tab.dataset.editorTab;
+      root.querySelectorAll('[data-editor-tab]').forEach(item=>item.setAttribute('aria-selected',String(item===tab)));
+      panes.forEach(pane=>pane.hidden=pane.dataset.editorSource!==active);
+      root.querySelector('[data-editor-language]').textContent=active==='js'?'JavaScript':active.toUpperCase();
+      updateCount();root.querySelector(`[data-editor-source="${active}"]`).focus();
+    }));
+    root.querySelector('[data-editor-run]').addEventListener('click',run);
+    root.querySelector('[data-editor-save]').addEventListener('click',()=>{try{localStorage.setItem('chiefletter-code-editor',JSON.stringify(Object.fromEntries(panes.map(p=>[p.dataset.editorSource,p.value]))));status.textContent='Draft saved in this browser.';}catch{status.textContent='Browser storage is unavailable. Copy or download your work.';}});
+    root.querySelector('[data-editor-copy]').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(root.querySelector(`[data-editor-source="${active}"]`).value);status.textContent='Active pane copied.';}catch{status.textContent='Clipboard access is unavailable. Select and copy the code manually.';}});
+    root.querySelector('[data-editor-download]').addEventListener('click',()=>{const html=root.querySelector('[data-editor-source="html"]').value,css=root.querySelector('[data-editor-source="css"]').value,js=root.querySelector('[data-editor-source="js"]').value;const safeJs=js.replace(/<\/script/gi,'<\\/script');const doc='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>'+css+'</style></head><body>'+html+'<script>'+safeJs+'</script></body></html>';const url=URL.createObjectURL(new Blob([doc],{type:'text/html'}));const link=document.createElement('a');link.href=url;link.download='chiefletter-playground.html';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status.textContent='HTML file downloaded. Review its code before sharing.';});
+    root.querySelector('[data-editor-reset]').addEventListener('click',()=>{panes.forEach(p=>p.value=starter[p.dataset.editorSource]);try{localStorage.removeItem('chiefletter-code-editor');}catch{}updateCount();run();status.textContent='Starter example restored.';});
+    root.querySelector('[data-editor-viewport]').addEventListener('change',event=>{preview.style.maxWidth=event.target.value;preview.style.width=event.target.value==='100%'?'100%':event.target.value;});
+    window.addEventListener('message',event=>{if(event.source===preview.contentWindow&&event.data?.type==='chiefletter-editor-error')status.textContent=`Preview error on line ${event.data.line}: ${event.data.message}`;});
+    updateCount();run();
+  }
+
+  function renderImageTool(root,id) {
+    const compress=id==='image-compressor';
+    let outputUrls=[];
+    root.hidden=false;
+    root.innerHTML=`<section class="tool-panel image-tool-panel"><div class="image-tool-controls"><label class="tool-field">${compress?'Choose images':'Choose an image'}<input type="file" accept="image/jpeg,image/png,image/webp" data-image-file ${compress?'multiple':''}></label>${compress?'<label class="tool-field">Output format<select data-image-format><option value="image/webp">WebP</option><option value="image/jpeg">JPEG</option><option value="image/png">PNG</option></select></label><label class="tool-field">Quality <span data-quality-value>75%</span><input type="range" min="20" max="100" value="75" data-image-quality></label><label class="tool-field">Maximum width in pixels<input type="number" min="1" max="8192" placeholder="Keep original width" data-image-max-width></label>':'<label class="tool-field">Width in pixels<input type="number" min="1" max="8192" value="800" data-image-width></label><label class="tool-field">Height in pixels<input type="number" min="1" max="8192" value="600" data-image-height></label><label class="image-check"><input type="checkbox" checked data-image-proportions> Preserve proportions</label><label class="tool-field">Output format<select data-image-format><option value="image/webp">WebP</option><option value="image/jpeg">JPEG</option><option value="image/png">PNG</option></select></label><label class="tool-field">Quality <span data-quality-value>85%</span><input type="range" min="20" max="100" value="85" data-image-quality></label>'}<div class="tool-buttons"><button type="button" data-image-run>${compress?'Compress images':'Resize image'}</button><button type="button" class="secondary-button" data-image-clear>Clear</button></div><p class="image-tool-note" data-image-note role="status" aria-live="polite">Files stay in this browser. ${compress?'After compression, source selections clear from this page. The originals on your device are untouched.':'The original image on your device is unchanged.'}</p></div><div class="image-tool-files" data-image-files aria-live="polite"></div></section>`;
+    const input=root.querySelector('[data-image-file]'), format=root.querySelector('[data-image-format]'), quality=root.querySelector('[data-image-quality]'), output=root.querySelector('[data-image-files]'), note=root.querySelector('[data-image-note]');
+    function clearResults(){outputUrls.forEach(url=>URL.revokeObjectURL(url));outputUrls=[];output.replaceChildren();}
+    quality.addEventListener('input',()=>{root.querySelector('[data-quality-value]').textContent=`${quality.value}%`;});
+    input.addEventListener('change',()=>{clearResults();output.textContent=input.files.length?`${input.files.length} image${input.files.length===1?'':'s'} selected.`:'No images selected.';});
+    root.querySelector('[data-image-clear]').addEventListener('click',()=>{input.value='';clearResults();note.textContent='Selection and output cleared from this page. Your original files are unchanged.';});
+    root.querySelector('[data-image-run]').addEventListener('click',async()=>{
+      const files=[...input.files];
+      if(!files.length){note.textContent='Choose an image file first.';return;}
+      const runButton=root.querySelector('[data-image-run]');runButton.disabled=true;clearResults();note.textContent=compress?'Compressing images in this browser…':'Resizing image in this browser…';
+      try {
+        for(const file of files){
+          if(!/^image\/(jpeg|png|webp)$/.test(file.type))throw new Error(`${file.name} is not a supported JPG, PNG, or WebP image.`);
+          const bitmap=await createImageBitmap(file),originalWidth=bitmap.width,originalHeight=bitmap.height;
+          let width,height;
+          if(compress){const max=Number(root.querySelector('[data-image-max-width]').value)||bitmap.width;const scale=Math.min(1,max/bitmap.width);width=Math.max(1,Math.round(bitmap.width*scale));height=Math.max(1,Math.round(bitmap.height*scale));}
+          else {width=Number(root.querySelector('[data-image-width]').value);height=Number(root.querySelector('[data-image-height]').value);if(!width||!height||width>8192||height>8192)throw new Error('Enter a width and height between 1 and 8192 pixels.');if(root.querySelector('[data-image-proportions]').checked){const scale=Math.min(width/bitmap.width,height/bitmap.height);width=Math.max(1,Math.round(bitmap.width*scale));height=Math.max(1,Math.round(bitmap.height*scale));}}
+          const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const context=canvas.getContext('2d');
+          const mime=format.value;if(mime==='image/jpeg'){context.fillStyle='#fff';context.fillRect(0,0,width,height);}context.drawImage(bitmap,0,0,width,height);bitmap.close?.();
+          const blob=await new Promise(resolve=>canvas.toBlob(resolve,mime,Number(quality.value)/100));if(!blob)throw new Error('The browser could not export this image format. Try WebP or JPEG.');
+          const extension=mime==='image/jpeg'?'jpg':mime.split('/')[1],name=file.name.replace(/\.[^.]+$/,'')+`-${compress?'compressed':'resized'}.${extension}`,url=URL.createObjectURL(blob);outputUrls.push(url);
+          const savings=Math.round((1-blob.size/file.size)*100);
+          const card=document.createElement('div');card.className='image-result-card';const preview=document.createElement('img');preview.src=url;preview.alt=`${name} preview`;preview.loading='lazy';const details=document.createElement('div');details.className='image-result-details';const title=document.createElement('strong');title.textContent=name;const meta=document.createElement('span');meta.textContent=`${originalWidth} × ${originalHeight} px · ${formatBytes(file.size)} → ${formatBytes(blob.size)}${savings>0?` · ${savings}% smaller`:savings<0?` · ${Math.abs(savings)}% larger`:' · same size'}`;const download=document.createElement('a');download.href=url;download.download=name;download.className='top-cta';download.textContent='Download image';details.append(title,meta,download);card.append(preview,details);output.append(card);
+        }
+        if(compress){input.value='';note.textContent='Compression finished. Source selections were cleared from this page. Download the results below. Your original files on your device are unchanged.';}else note.textContent='Resize finished. Download the new image below. The original file is unchanged.';
+      } catch(error){note.textContent=error.message||'The image could not be processed.';}
+      finally{runButton.disabled=false;}
+    });
+  }
+  function formatBytes(bytes){if(bytes<1024)return `${bytes} B`;const units=['KB','MB','GB'];let value=bytes/1024,index=0;while(value>=1024&&index<units.length-1){value/=1024;index++;}return `${value.toFixed(value>=10?1:2)} ${units[index]}`;}
+
+  function renderSubnetCalculator(root){
+    root.hidden=false;root.innerHTML='<section class="tool-panel"><div class="tool-form-area"><label class="tool-field">IPv4 address and CIDR prefix<input type="text" data-cidr value="192.168.10.23/24" placeholder="192.168.10.23/24" autocomplete="off"></label><div class="tool-buttons"><button type="button" data-subnet-run>Calculate subnet</button></div><div class="tool-output subnet-output" aria-live="polite"></div></div></section>';
+    const input=root.querySelector('[data-cidr]'),out=root.querySelector('.tool-output');
+    const dotted=value=>[24n,16n,8n,0n].map(shift=>Number((value>>shift)&255n)).join('.');
+    const calculate=()=>{try{const match=input.value.trim().match(/^(\d{1,3}(?:\.\d{1,3}){3})\/(\d|[12]\d|3[0-2])$/);if(!match)throw new Error('Enter an IPv4 CIDR value, such as 192.168.10.23/24.');const parts=match[1].split('.').map(Number),prefix=Number(match[2]);if(parts.some(part=>part>255))throw new Error('Each IPv4 address part must be between 0 and 255.');const ip=parts.reduce((value,part)=>(value<<8n)+BigInt(part),0n),all=0xffffffffn,mask=prefix===0?0n:(all<<BigInt(32-prefix))&all,network=ip&mask,broadcast=network|(all^mask),count=2n**BigInt(32-prefix),hosts=prefix===32?1n:prefix===31?2n:count-2n,first=prefix>=31?network:network+1n,last=prefix>=31?broadcast:broadcast-1n,wildcard=all^mask;const rows=[['Network',dotted(network)+`/${prefix}`],['Subnet mask',dotted(mask)],['Wildcard mask',dotted(wildcard)],['Broadcast',dotted(broadcast)],['Address range',`${dotted(first)} – ${dotted(last)}`],['Addresses in block',String(count)],['Usable host addresses',String(hosts)]];out.innerHTML=`<div class="subnet-result-grid">${rows.map(([label,value])=>`<div><span>${label}</span><strong>${value}</strong></div>`).join('')}</div><p class="tool-privacy">/31 and /32 use special host-count conventions. Confirm routing and reserved addresses in your network plan.</p>`;}catch(error){out.textContent=error.message;}};
+    root.querySelector('[data-subnet-run]').addEventListener('click',calculate);input.addEventListener('keydown',event=>{if(event.key==='Enter')calculate();});calculate();
+  }
+
+  function renderCssUnitConverter(root){
+    root.hidden=false;root.innerHTML='<section class="tool-panel"><div class="unit-converter-grid"><label class="tool-field">Value in pixels<input type="number" step="any" value="24" data-unit-px></label><label class="tool-field">Root font size in pixels<input type="number" min="1" step="any" value="16" data-unit-root></label><label class="tool-field">Parent font size in pixels<input type="number" min="1" step="any" value="16" data-unit-parent></label></div><div class="tool-output" data-unit-output aria-live="polite"></div></section>';
+    const update=()=>{const px=Number(root.querySelector('[data-unit-px]').value),base=Number(root.querySelector('[data-unit-root]').value),parent=Number(root.querySelector('[data-unit-parent]').value),out=root.querySelector('[data-unit-output]');if(!Number.isFinite(px)||base<=0||parent<=0){out.textContent='Enter a pixel value and font sizes above zero.';return;}out.innerHTML=`<div class="unit-results"><div><span>Pixels</span><strong>${px}px</strong></div><div><span>Root relative</span><strong>${(px/base).toFixed(4).replace(/0+$/,'').replace(/\.$/,'')}rem</strong></div><div><span>Parent relative</span><strong>${(px/parent).toFixed(4).replace(/0+$/,'').replace(/\.$/,'')}em</strong></div></div><p class="tool-privacy">Rem uses the root size. Em uses the parent size entered here.</p>`;};root.querySelectorAll('input').forEach(input=>input.addEventListener('input',update));update();
+  }
+
+  function renderShadowGenerator(root){
+    root.hidden=false;root.innerHTML='<section class="tool-panel"><div class="shadow-controls"><label class="tool-field">Horizontal offset <output data-shadow-x-label>0px</output><input type="range" min="-40" max="40" value="0" data-shadow-x></label><label class="tool-field">Vertical offset <output data-shadow-y-label>12px</output><input type="range" min="-40" max="40" value="12" data-shadow-y></label><label class="tool-field">Blur <output data-shadow-blur-label>24px</output><input type="range" min="0" max="80" value="24" data-shadow-blur></label><label class="tool-field">Spread <output data-shadow-spread-label>0px</output><input type="range" min="-20" max="40" value="0" data-shadow-spread></label><label class="tool-field">Shadow color<input type="color" value="#000000" data-shadow-color></label><label class="tool-field">Opacity <output data-shadow-alpha-label>16%</output><input type="range" min="0" max="100" value="16" data-shadow-alpha></label></div><div class="shadow-preview" data-shadow-preview><span>Preview card</span></div><div class="tool-output"><pre data-shadow-result></pre><button type="button" class="secondary-button" data-shadow-copy>Copy CSS</button></div></section>';
+    const update=()=>{const value=name=>Number(root.querySelector(`[data-shadow-${name}]`).value),hex=root.querySelector('[data-shadow-color]').value,r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16),alpha=value('alpha')/100,shadow=`${value('x')}px ${value('y')}px ${value('blur')}px ${value('spread')}px rgba(${r}, ${g}, ${b}, ${alpha.toFixed(2)})`;root.querySelector('[data-shadow-preview]').style.boxShadow=shadow;root.querySelector('[data-shadow-result]').textContent=`box-shadow: ${shadow};`;for(const name of ['x','y','blur','spread','alpha'])root.querySelector(`[data-shadow-${name}-label]`).textContent=name==='alpha'?`${value(name)}%`:`${value(name)}px`;};root.querySelectorAll('input').forEach(input=>input.addEventListener('input',update));root.querySelector('[data-shadow-copy]').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(root.querySelector('[data-shadow-result]').textContent);root.querySelector('[data-shadow-copy]').textContent='Copied';}catch{root.querySelector('[data-shadow-copy]').textContent='Select and copy CSS';}});update();
   }
 
   function fieldDefinitions(id) {
