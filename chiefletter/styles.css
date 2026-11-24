@@ -84,7 +84,7 @@ button, a, input, textarea, summary { -webkit-tap-highlight-color: transparent; 
 .card { min-width: 0; padding: 10px; border: 1px solid var(--line); border-radius: 9px; background: #fff; transition: border-color .16s, box-shadow .16s, transform .16s; }
 .card:hover { transform: translateY(-2px); border-color: #d0d0d0; box-shadow: 0 8px 24px rgb(0 0 0 / 5%); }
 .card-image { position: relative; display: block; overflow: hidden; border-radius: 6px; background: #eee; }
-.card-image img { width: 100%; aspect-ratio: 1.8; object-fit: cover; filter: grayscale(1); transition: transform .25s; }
+.card-image img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; filter: grayscale(1); transition: transform .25s; }
 .card:hover .card-image img { transform: scale(1.025); }
 .card-cat { position: absolute; bottom: 9px; left: 9px; padding: 4px 7px; border: 1px solid rgb(255 255 255 / 60%); border-radius: 5px; background: rgb(255 255 255 / 92%); color: #222; font: 9px var(--mono); }
 .card-body { padding: 13px 4px 5px; }
@@ -418,9 +418,9 @@ button, a, input, textarea, summary { -webkit-tap-highlight-color: transparent; 
   .topic-grid strong { margin-top: 17px; font-size: 14px; }
   .topic-grid small { font-size: 10px; }
   .article-grid { grid-template-columns: 1fr; gap: 13px; }
-  .card { display: grid; grid-template-columns: minmax(96px, 31%) minmax(0, 1fr); gap: 11px; padding: 8px; }
-  .card-image { align-self: stretch; min-height: 130px; }
-  .card-image img { height: 100%; min-height: 130px; aspect-ratio: auto; }
+  .card { display: flex; flex-direction: column; gap: 0; padding: 8px; }
+  .card-image { width: 100%; min-height: 0; align-self: auto; aspect-ratio: 16 / 9; }
+  .card-image img { width: 100%; height: auto; min-height: 0; aspect-ratio: 16 / 9; }
   .card-cat { right: 5px; bottom: 5px; left: 5px; width: max-content; max-width: calc(100% - 10px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 8px; }
   .card-body { min-width: 0; padding: 3px 2px; }
   .card h3 { margin-top: 6px; font-size: 16px; }

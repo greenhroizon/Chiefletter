@@ -19,7 +19,10 @@ const ARTICLE_THUMBNAILS={
   'make-a-useful-on-call-handoff':['photo-1524758631624-e2822e304c36','A shared office space used for coordinating team work'],
   'a-practical-guide-to-choosing-tech-tools':['photo-1516321497487-e288fb19713f','A laptop on a desk while someone compares work tools'],
   'test-a-website-on-mobile-before-you-publish':['photo-1547658719-da2b51169166','A person checking a responsive web page on a phone'],
-  'choose-api-pagination-that-fits-your-data':['photo-1526374965328-7f61d4dc18c5','A close-up of data displayed on a computer screen'],
-  'keep-browser-storage-from-losing-user-work':['photo-1496181133206-80ce9b88a853','A laptop used to work with saved files and browser data']
+  'keep-browser-storage-from-losing-user-work':['photo-1496181133206-80ce9b88a853','A laptop used to work with saved files and browser data'],
+  'choose-api-pagination-that-fits-your-data':['photo-1544383835-bda2bc66a55d','A database table displayed on a computer screen'],
+  'learn-sql-by-answering-real-questions':['photo-1551288049-bebda4e38f71','An analytics dashboard with charts and data tables'],
+  'turn-a-data-project-into-a-clear-answer':['photo-1526374965328-7f61d4dc18c5','A screen showing rows of digital information'],
+  'understand-apis-by-building-a-small-integration':['photo-1558494949-ef010cbdcc31','Network cables connected to server equipment']
 };
 for(const article of window.ARTICLES){const thumbnail=ARTICLE_THUMBNAILS[article.id];if(thumbnail){article.image=thumbnail[0];article.alt=thumbnail[1];}}
