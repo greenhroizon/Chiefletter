@@ -8,7 +8,7 @@ let selected='All stories';
 const PAGE_SIZE=12;
 let visibleCount=PAGE_SIZE;
 const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const imageUrl=(id,w=800)=>`https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=86`;
+const imageUrl=(id,w=800)=>`https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&h=${Math.round(w/1.7778)}&q=86`;
 const imageSet=id=>`${imageUrl(id,480)} 480w, ${imageUrl(id,800)} 800w, ${imageUrl(id,1200)} 1200w`;
 const articleUrl=a=>`articles/${encodeURIComponent(a.id)}/`;
 function drawCards(){
