@@ -1,0 +1,25 @@
+const ARTICLE_THUMBNAILS={
+  'make-a-computer-science-study-plan-that-connects-to-work':['photo-1434030216411-0b793f4b4173','A notebook and pen beside a computer while someone plans a study session'],
+  'build-a-safe-browser-code-playground':['photo-1522542550221-31fd19575a2d','A laptop displaying a web page during a front-end experiment'],
+  'write-technical-documentation-people-will-use':['photo-1497366811353-6870744d04b2','A tidy shared workspace set up for writing and reviewing documentation'],
+  'turn-a-vague-tech-task-into-a-clear-plan':['photo-1531403009284-440f080d1e12','A team arranging notes to plan a project'],
+  'work-well-with-product-design-and-engineering':['photo-1556761175-b413da4baf72','Colleagues discussing a product decision around a table'],
+  'ask-for-technical-help-without-wasting-time':['photo-1522202176988-66273c2fd55f','Two colleagues working through a question together at a laptop'],
+  'keep-api-keys-out-of-git':['photo-1518770660439-4636190af475','A close view of electronic components on a circuit board'],
+  'update-software-dependencies-without-breaking-everything':['photo-1542831371-29b0f74f9713','A computer screen showing source code during development'],
+  'resolve-git-merge-conflicts-step-by-step':['photo-1550439062-609e1531270e','A developer workstation used to review a source change'],
+  'debug-javascript-errors-in-the-browser':['photo-1519389950473-47ba0277781c','A small team working at computers during a software task'],
+  'debug-a-slow-website-without-guessing':['photo-1504639725590-34d0984388bd','Code displayed on a computer screen during a website performance check'],
+  'plan-a-software-release-with-a-safe-rollback':['photo-1552664730-d307ca884978','A team meeting to review a software release plan'],
+  'keep-a-small-cloud-project-from-running-up-costs':['photo-1531297484001-80022131f5a1','A laptop used to review a cloud project and its costs'],
+  'deploy-your-first-cloud-service':['photo-1527443224154-c4a3942d3acf','A computer workstation used to deploy a web service'],
+  'read-tech-job-descriptions-without-getting-discouraged':['photo-1557804506-669a67965ba0','People sharing information during a work discussion'],
+  'write-a-bug-report-that-helps-someone-fix-the-problem':['photo-1517842645767-c639042777db','A person writing notes while investigating a technical issue'],
+  'make-a-contact-form-accessible-and-usable':['photo-1558655146-9f40138edfeb','A designer reviewing a user interface on a screen'],
+  'make-a-useful-on-call-handoff':['photo-1524758631624-e2822e304c36','A shared office space used for coordinating team work'],
+  'a-practical-guide-to-choosing-tech-tools':['photo-1516321497487-e288fb19713f','A laptop on a desk while someone compares work tools'],
+  'test-a-website-on-mobile-before-you-publish':['photo-1547658719-da2b51169166','A person checking a responsive web page on a phone'],
+  'choose-api-pagination-that-fits-your-data':['photo-1526374965328-7f61d4dc18c5','A close-up of data displayed on a computer screen'],
+  'keep-browser-storage-from-losing-user-work':['photo-1496181133206-80ce9b88a853','A laptop used to work with saved files and browser data']
+};
+for(const article of window.ARTICLES){const thumbnail=ARTICLE_THUMBNAILS[article.id];if(thumbnail){article.image=thumbnail[0];article.alt=thumbnail[1];}}

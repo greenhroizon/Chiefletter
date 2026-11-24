@@ -77,6 +77,10 @@ button, a, input, textarea, summary { -webkit-tap-highlight-color: transparent; 
 .filter:hover { border-color: #aaa; }
 .filter.active { border-color: #171717; background: #171717; color: #fff; }
 .article-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.story-result-count { min-height: 17px; margin: -18px 0 14px; color: var(--faint); font: 10px var(--mono); }
+.load-more-stories { display: block; min-height: 42px; margin: 24px auto 0; padding: 9px 16px; border: 1px solid #171717; border-radius: 5px; background: #171717; color: white; cursor: pointer; font-size: 12px; }
+.load-more-stories:hover { background: #333; }
+.load-more-stories[hidden] { display: none; }
 .card { min-width: 0; padding: 10px; border: 1px solid var(--line); border-radius: 9px; background: #fff; transition: border-color .16s, box-shadow .16s, transform .16s; }
 .card:hover { transform: translateY(-2px); border-color: #d0d0d0; box-shadow: 0 8px 24px rgb(0 0 0 / 5%); }
 .card-image { position: relative; display: block; overflow: hidden; border-radius: 6px; background: #eee; }
