@@ -166,6 +166,15 @@ button, a, input, textarea, summary { -webkit-tap-highlight-color: transparent; 
 .tools-intro { max-width: 740px; margin-bottom: 52px; }
 .tools-intro h1 { margin: 0; font-size: clamp(44px,6vw,68px); font-weight: 500; line-height: 1.04; letter-spacing: -.06em; }
 .tools-intro > p:last-child { max-width: 570px; margin: 17px 0 0; color: var(--muted); font-size: 16px; line-height: 1.7; }
+.tools-picks { display: grid; grid-template-columns: minmax(190px,.72fr) minmax(0,2fr); gap: 25px; margin: 0 0 58px; padding: 22px; border: 1px solid var(--line); border-radius: 9px; background: var(--soft); }
+.tools-picks h2 { margin: 0; font-size: 24px; font-weight: 600; letter-spacing: -.04em; }
+.tools-picks p:not(.eyebrow) { margin: 9px 0 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.tools-picks-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 8px; }
+.tools-picks-grid a { display: flex; min-width: 0; min-height: 124px; flex-direction: column; align-items: flex-start; gap: 8px; padding: 12px; border: 1px solid var(--line); border-radius: 7px; background: #fff; text-decoration: none; transition: border-color .15s,transform .15s; }
+.tools-picks-grid a:hover { transform: translateY(-2px); border-color: #aaa; }
+.tools-picks-grid span { color: var(--faint); font: 9px var(--mono); }
+.tools-picks-grid strong { font-size: 13px; line-height: 1.3; }
+.tools-picks-grid small { margin-top: auto; color: var(--muted); font-size: 10px; line-height: 1.5; }
 .tools-heading-row { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 19px; }
 .tools-heading-row .eyebrow { margin-bottom: 5px; }
 .tools-heading-row h2 { margin: 0; font-size: 30px; font-weight: 600; letter-spacing: -.04em; }
@@ -173,6 +182,9 @@ button, a, input, textarea, summary { -webkit-tap-highlight-color: transparent; 
 .tool-search input { width: 100%; min-width: 0; padding: 9px 11px; border: 1px solid var(--line); border-radius: 6px; outline: 0; background: #fff; font-size: 12px; }
 .tool-search input:focus { outline: 2px solid #222; outline-offset: 2px; }
 .tool-categories { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 16px; }
+.tool-categories .filter span { margin-left: 4px; color: var(--faint); font: 9px var(--mono); }
+.tool-categories .filter.active span { color: #ddd; }
+.tool-result-count { min-height: 18px; margin: -7px 0 13px; color: var(--faint); font: 10px/1.5 var(--mono); }
 .tool-catalog { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; }
 .tool-card { display: flex; min-height: 144px; flex-direction: column; align-items: flex-start; gap: 8px; padding: 14px; border: 1px solid var(--line); border-radius: 7px; background: #fff; color: var(--ink); text-align: left; text-decoration: none; cursor: pointer; transition: border-color .15s,box-shadow .15s,transform .15s; }
 .tool-card:hover { transform: translateY(-2px); border-color: #bcbcbc; box-shadow: 0 6px 18px rgb(0 0 0 / 5%); }
@@ -332,6 +344,7 @@ button, a, input, textarea, summary { -webkit-tap-highlight-color: transparent; 
   .topbar nav { flex-wrap: wrap; gap: 10px 15px; }
   .tool-catalog { grid-template-columns: repeat(3,minmax(0,1fr)); }
   .tools-feature-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .tools-picks { grid-template-columns: 1fr; }
 }
 
 .article-tool { min-width: 0; margin: 42px 0; padding: 23px; border: 1px solid #dedede; border-radius: 9px; background: #f8f8f8; }
@@ -434,6 +447,9 @@ button, a, input, textarea, summary { -webkit-tap-highlight-color: transparent; 
   .tools-feature-heading h2 { font-size: 34px; }
   .tools-feature-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .tools-main { width: calc(100% - 40px); padding-top: 42px; }
+  .tools-picks { gap: 17px; margin-bottom: 40px; padding: 15px; }
+  .tools-picks-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .tools-picks-grid a { min-height: 118px; }
   .tools-intro { margin-bottom: 36px; }
   .tools-intro h1 { font-size: 43px; }
   .tools-intro > p:last-child { font-size: 14px; }
@@ -501,6 +517,7 @@ button, a, input, textarea, summary { -webkit-tap-highlight-color: transparent; 
   .card h3 { font-size: 14px; }
   .card p { font-size: 10px; }
   .tools-feature-grid { grid-template-columns: 1fr 1fr; }
+  .tools-picks-grid { grid-template-columns: 1fr 1fr; }
   .tool-catalog { grid-template-columns: 1fr; }
   .tool-card { min-height: 116px; }
 }

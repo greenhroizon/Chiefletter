@@ -23,6 +23,9 @@ const ARTICLE_THUMBNAILS={
   'choose-api-pagination-that-fits-your-data':['photo-1544383835-bda2bc66a55d','A database table displayed on a computer screen'],
   'learn-sql-by-answering-real-questions':['photo-1551288049-bebda4e38f71','An analytics dashboard with charts and data tables'],
   'turn-a-data-project-into-a-clear-answer':['photo-1526374965328-7f61d4dc18c5','A screen showing rows of digital information'],
-  'understand-apis-by-building-a-small-integration':['photo-1558494949-ef010cbdcc31','Network cables connected to server equipment']
+  'understand-apis-by-building-a-small-integration':['photo-1558494949-ef010cbdcc31','Network cables connected to server equipment'],
+  'fix-a-ci-pipeline-that-fails-only-on-main':['photo-1555949963-ff9fe0c870eb','A developer inspecting code and test output on a computer'],
+  'design-a-password-reset-flow-that-protects-accounts':['photo-1563986768609-322da13575f3','A security analyst reviewing account protection on a laptop'],
+  'write-api-errors-that-help-without-leaking-secrets':['photo-1551434678-e076c223a692','A software team checking a service issue together at a desk']
 };
 for(const article of window.ARTICLES){const thumbnail=ARTICLE_THUMBNAILS[article.id];if(thumbnail){article.image=thumbnail[0];article.alt=thumbnail[1];}}

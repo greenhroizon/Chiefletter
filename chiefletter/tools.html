@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=wide-hero-20261124">
+  <link rel="stylesheet" href="styles.css?v=workbench-20261126">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -23,14 +23,24 @@
     <section class="tools-intro">
       <p class="eyebrow">Chiefletter / Workbench</p>
       <h1>Small tools for everyday work.</h1>
-      <p>Forty-four browser tools for coding, design, accessibility, security, and writing. Load an example, edit it, and copy the result. Your input stays on your device.</p>
+      <p><span data-tool-total>44</span> focused browser tools for coding, design, accessibility, security, and writing. Each tool has its own guide, examples, use cases, limits, and answers to common questions. Your input stays on your device.</p>
+    </section>
+    <section class="tools-picks" aria-labelledby="tools-picks-heading">
+      <div><p class="eyebrow">A good place to start</p><h2 id="tools-picks-heading">Useful in a minute.</h2><p>Open a tool, try a small example, then use the guide on its page for the details.</p></div>
+      <div class="tools-picks-grid">
+        <a href="tools/json-formatter/"><span>CODING</span><strong>Format JSON</strong><small>Validate a response or config file.</small></a>
+        <a href="tools/password-generator/"><span>SECURITY</span><strong>Generate a password</strong><small>Set length and character options locally.</small></a>
+        <a href="tools/image-compressor/"><span>DESIGN</span><strong>Compress an image</strong><small>Compare output size before download.</small></a>
+        <a href="tools/http-status-reference/"><span>CODING</span><strong>Look up an HTTP status</strong><small>Read the meaning and common next step.</small></a>
+      </div>
     </section>
     <section class="tools-library" aria-labelledby="tools-heading">
       <div class="tools-heading-row">
         <div><p class="eyebrow">The collection</p><h2 id="tools-heading">Choose a tool</h2></div>
-        <label class="tool-search"><span>Filter tools</span><input id="tool-search" type="text" placeholder="Search the tools" autocomplete="off"></label>
+        <label class="tool-search"><span>Search by name, task, or category</span><input id="tool-search" type="search" placeholder="For example, compare text" autocomplete="off"></label>
       </div>
       <div class="tool-categories" id="tool-categories" aria-label="Filter tools by category"></div>
+      <p class="tool-result-count" id="tool-result-count" aria-live="polite"></p>
       <div class="tool-catalog" id="tool-catalog"></div>
     </section>
   </main>

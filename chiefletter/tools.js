@@ -3,17 +3,23 @@
   const workspace = document.getElementById('tool-workspace');
   const search = document.getElementById('tool-search');
   const categoriesNode = document.getElementById('tool-categories');
+  const resultCount = document.getElementById('tool-result-count');
   const singleToolId = document.body.dataset.toolId || '';
   if ((!catalog && !singleToolId) || (singleToolId && !workspace)) return;
 
   const tools = window.TOOL_LIST || [];
+  const toolTotal = document.querySelector('[data-tool-total]');
+  if (toolTotal) toolTotal.textContent = tools.length;
   const categories = ['All tools', ...new Set(tools.map(tool=>tool.category))];
   let selectedCategory = 'All tools';
   const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 
   function drawCategories() {
     if (!categoriesNode) return;
-    categoriesNode.innerHTML = categories.map(name => `<button type="button" class="filter ${name===selectedCategory?'active':''}" data-category="${esc(name)}">${esc(name)}</button>`).join('');
+    categoriesNode.innerHTML = categories.map(name => {
+      const count=name==='All tools'?tools.length:tools.filter(tool=>tool.category===name).length;
+      return `<button type="button" class="filter ${name===selectedCategory?'active':''}" data-category="${esc(name)}" aria-pressed="${name===selectedCategory}">${esc(name)} <span>${count}</span></button>`;
+    }).join('');
     categoriesNode.querySelectorAll('[data-category]').forEach(button => button.addEventListener('click', () => {
       selectedCategory = button.dataset.category;
       drawCategories();
@@ -25,6 +31,8 @@
     if (!catalog || !search) return;
     const query = search.value.trim().toLowerCase();
     const visible = tools.filter(tool => (selectedCategory === 'All tools' || tool.category === selectedCategory) && `${tool.name} ${tool.description} ${tool.category}`.toLowerCase().includes(query));
+    const countLabel=visible.length===1?'1 tool':`${visible.length} tools`;
+    if(resultCount)resultCount.textContent=`Showing ${countLabel}${query?` for “${search.value.trim()}”`:''}${selectedCategory!=='All tools'?` in ${selectedCategory}`:''}.`;
     catalog.innerHTML = visible.length ? visible.map(tool => `<a class="tool-card" href="tools/${tool.id}/"><span class="tool-card-category">${tool.category}</span><strong>${tool.name}</strong><span>${tool.description}</span><span class="tool-card-link">Open tool</span></a>`).join('') : '<p class="empty">No tools match this search.</p>';
   }
 

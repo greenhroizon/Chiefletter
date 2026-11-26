@@ -62,6 +62,9 @@
   <url><loc>https://chiefletter.com/articles/plan-a-software-release-with-a-safe-rollback/</loc></url>
   <url><loc>https://chiefletter.com/articles/choose-api-pagination-that-fits-your-data/</loc></url>
   <url><loc>https://chiefletter.com/articles/keep-browser-storage-from-losing-user-work/</loc></url>
+  <url><loc>https://chiefletter.com/articles/fix-a-ci-pipeline-that-fails-only-on-main/</loc></url>
+  <url><loc>https://chiefletter.com/articles/design-a-password-reset-flow-that-protects-accounts/</loc></url>
+  <url><loc>https://chiefletter.com/articles/write-api-errors-that-help-without-leaking-secrets/</loc></url>
   <url><loc>https://chiefletter.com/tools/url-encoder/</loc></url>
   <url><loc>https://chiefletter.com/tools/url-decoder/</loc></url>
   <url><loc>https://chiefletter.com/tools/json-formatter/</loc></url>
