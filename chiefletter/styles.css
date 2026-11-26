@@ -131,7 +131,8 @@ button, a, input, textarea, summary { -webkit-tap-highlight-color: transparent; 
 .author-story h2 a { text-decoration: none; }
 .author-story h2 a:hover { text-decoration: underline; }
 .author-story > p:last-child { max-width: 680px; margin: 8px 0 0; color: var(--muted); font-size: 13px; }
-.article-author { font: inherit; font-weight: 600; letter-spacing: 0; text-transform: none; }
+.article-byline { margin: 7px 0 10px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+.article-author { color: var(--ink); font: inherit; font-weight: 600; letter-spacing: 0; text-transform: none; }
 
 .article-page { display: grid; grid-template-columns: minmax(160px, 205px) minmax(0, 760px); justify-content: center; gap: clamp(24px, 5vw, 64px); width: min(1180px, calc(100% - 56px)); margin: 0 auto; padding: 54px 0 90px; }
 .article-aside { position: sticky; top: 88px; align-self: start; max-height: calc(100vh - 106px); overflow: auto; padding: 13px 12px 16px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
