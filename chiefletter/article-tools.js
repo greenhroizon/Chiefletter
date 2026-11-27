@@ -1,6 +1,6 @@
 (() => {
   const tool = document.querySelector('[data-article-tool]');
-  if (!tool) return;
+  if (tool) {
   const id = tool.dataset.articleTool;
   const key = `chiefletter:article:${id}`;
   const checks = [...tool.querySelectorAll('[data-activity-check]')];
@@ -73,6 +73,7 @@
   });
 
   updateProgress();
+  }
 
   document.querySelectorAll('[data-focus-timer]').forEach(timer => {
     let seconds = 25 * 60;
@@ -122,6 +123,17 @@
       const heading=document.createElement('p');heading.textContent=`Use about ${Math.floor(minutes/steps.length)} minutes for each step.`;
       const list=document.createElement('ol');steps.forEach(step=>{const item=document.createElement('li');item.textContent=step;list.append(item);});
       result.append(heading,list);
+    });
+  });
+
+  document.querySelectorAll('[data-security-review]').forEach(review => {
+    review.querySelector('[data-security-build]').addEventListener('click', () => {
+      const checks=[...review.querySelectorAll('[data-security-check]')];
+      const open=checks.map((check,index)=>check.checked?null:`${index+1}. ${check.parentElement.textContent.trim()}`).filter(Boolean);
+      const note=review.querySelector('[data-security-note]').value.trim();
+      const result=review.querySelector('[data-security-result]');result.replaceChildren();
+      const lines=[open.length?`Still to verify:\n${open.join('\n')}`:'All four checks are marked complete.',note?`\nOwner note: ${note}`:''];
+      const summary=document.createElement('pre');summary.textContent=lines.join('\n');result.append(summary,makeCopyButton(summary.textContent));
     });
   });
 
